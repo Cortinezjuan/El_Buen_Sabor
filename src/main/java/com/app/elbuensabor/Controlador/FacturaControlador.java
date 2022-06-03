@@ -14,12 +14,12 @@ public class FacturaControlador {
     @Autowired
     FacturaServicio facturaServicio;
 
-    @GetMapping("/facturas")
+    @GetMapping("/listarFacturas")
     public List<Factura> listarFacturas(){
         return facturaServicio.listarFacturas();
     }
 
-    @GetMapping("/factura/{id}")
+    @GetMapping("/listarFacturaXId/{id}")
     public Optional<Factura> listarFacturaPorId(@PathVariable("id") int id){
         return facturaServicio.listarFacturaPorId(id);
     }

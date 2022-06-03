@@ -14,7 +14,7 @@ public class FacturaServicio {
     FacturaRepositorio facturaRepositorio;
 
     public List<Factura> listarFacturas(){
-        return facturaRepositorio.findAll();
+        return facturaRepositorio.listarFacturas();
     }
 
     public Optional<Factura> listarFacturaPorId(int id){
@@ -26,7 +26,10 @@ public class FacturaServicio {
     }
 
     public void borrarFactura(int id){
-        facturaRepositorio.deleteById(id);
+        Optional<Factura> factura = facturaRepositorio.findById(id);
+        factura.get().setBajaFactura(true);
+        facturaRepositorio.save(factura.get());
+
     }
 
     public Factura modificarFactura(Factura factura){
