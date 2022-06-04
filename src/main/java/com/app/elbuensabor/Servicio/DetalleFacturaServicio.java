@@ -1,7 +1,6 @@
 package com.app.elbuensabor.Servicio;
 
 import com.app.elbuensabor.Entidad.DetalleFactura;
-import com.app.elbuensabor.Entidad.Factura;
 import com.app.elbuensabor.Repositorio.DetalleFacturaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

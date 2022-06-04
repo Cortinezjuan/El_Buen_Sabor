@@ -5,20 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class DetalleFactura {
+public class Pago {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int idDetalleFactura;
-    @OneToOne
-    private Factura factura;
-    @OneToOne
-    private Pago pago;
-    private int cantidadDetalleFactura;
+    private int idPago;
 }

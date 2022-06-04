@@ -1,7 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
 import com.app.elbuensabor.Entidad.DetalleFactura;
-import com.app.elbuensabor.Entidad.Factura;
 import com.app.elbuensabor.Servicio.DetalleFacturaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
