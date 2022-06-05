@@ -8,34 +8,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins="*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class FacturaControlador {
     @Autowired
     FacturaServicio facturaServicio;
 
     @GetMapping("/listarFacturas")
-    public List<Factura> listarFacturas(){
+    public List<Factura> listarFacturas() {
         return facturaServicio.listarFacturas();
     }
 
     @GetMapping("/listarFacturaXId/{id}")
-    public Optional<Factura> listarFacturaPorId(@PathVariable("id") int id){
+    public Optional<Factura> listarFacturaPorId(@PathVariable("id") int id) {
         return facturaServicio.listarFacturaPorId(id);
     }
 
     @PostMapping("/crearFactura")
-    public Factura crearFactura(@RequestBody Factura factura){
+    public Factura crearFactura(@RequestBody Factura factura) {
         return facturaServicio.guardarFactura(factura);
     }
 
     @DeleteMapping("/borrarFactura/{id}")
-    public void borrarFactura(@PathVariable("id") int id){
+    public void borrarFactura(@PathVariable("id") int id) {
         facturaServicio.borrarFactura(id);
     }
 
     @PutMapping("/modificarFactura")
-    public Factura modificarFactura(@RequestBody Factura factura){
+    public Factura modificarFactura(@RequestBody Factura factura) {
         return facturaServicio.modificarFactura(factura);
     }
 }

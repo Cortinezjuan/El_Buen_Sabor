@@ -29,7 +29,6 @@ public class FacturaServicio {
         Optional<Factura> factura = facturaRepositorio.findById(id);
         factura.get().setBajaFactura(true);
         facturaRepositorio.save(factura.get());
-
     }
 
     public Factura modificarFactura(Factura factura){
