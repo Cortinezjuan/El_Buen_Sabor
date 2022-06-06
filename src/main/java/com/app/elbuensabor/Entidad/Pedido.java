@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -30,6 +31,15 @@ public class Pedido {
     private boolean bajaPedido;
 
     //RELACIONES
+    @OneToOne
+    private Factura factura;
+    @OneToMany
+    private List<DetallePedido> detalles;
+    @ManyToOne
+    private Usuario usuario;
+    @OneToOne
+    private Domicilio domicilio;
+
 
     public Pedido(int idPedido, int idUsuario, int idFactura, int idDomicilioEntrega, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, boolean bajaPedido) {
         this.idPedido = idPedido;
