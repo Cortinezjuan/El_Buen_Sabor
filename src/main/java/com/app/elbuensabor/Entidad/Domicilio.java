@@ -22,6 +22,7 @@ public class Domicilio {
     private String localidad;
     private boolean bajaDomicilio;
 
+
     public Domicilio(int idDomicilio, String calle, int numeroDomicilio, String localidad) {
         this.idDomicilio = idDomicilio;
         this.calle = calle;

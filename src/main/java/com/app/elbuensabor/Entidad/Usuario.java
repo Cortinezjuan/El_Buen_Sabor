@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -26,7 +24,14 @@ public class Usuario {
     private int telefono;
     boolean bajaUsuario;
 
-    public Usuario(int idUsuario, String nombres, String apellidos, String clave, String email, String usuario, int telefono) {
+    //Relaciones
+    @OneToMany
+    private List<Domicilio> domicilios;
+
+    @ManyToOne
+    private Rol rol;
+
+    public Usuario(int idUsuario, String nombres, String apellidos, String clave, String email, String usuario, int telefono, List<Domicilio> domicilios, Rol rol) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -34,6 +39,8 @@ public class Usuario {
         this.email = email;
         this.usuario = usuario;
         this.telefono = telefono;
-        this.bajaUsuario= false;
+        this.bajaUsuario = false;
+        this.domicilios = domicilios;
+        this.rol = rol;
     }
 }

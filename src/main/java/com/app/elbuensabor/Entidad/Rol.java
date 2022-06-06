@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,9 +18,14 @@ public class Rol {
     private String descripcion;
     private boolean bajaRol;
 
-    public Rol(int idRol, String descripcion) {
+    //Relaciones
+    @OneToMany
+    private List<Usuario> usuarios;
+
+    public Rol(int idRol, String descripcion, List<Usuario> usuarios) {
         this.idRol = idRol;
         this.descripcion = descripcion;
         this.bajaRol = false;
+        this.usuarios = usuarios;
     }
 }

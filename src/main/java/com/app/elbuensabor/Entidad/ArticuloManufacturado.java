@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -24,11 +22,24 @@ private String denominacionArticuloManu;
 private String imagenArticuloManu;
 private boolean bajaArticuloManu;
 
-    public ArticuloManufacturado(int idArticuloManufacturado, int tiempoEstimadoCocina, String denominacionArticuloManu, String imagenArticuloManu) {
+//Relaciones
+    @OneToMany
+    private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
+
+    @OneToMany
+    private List<PrecioArticuloManufacturado> precioArticuloManufacturados;
+
+    @ManyToOne
+    private RubroGeneral rubroGeneral;
+
+    public ArticuloManufacturado(int idArticuloManufacturado, int tiempoEstimadoCocina, String denominacionArticuloManu, String imagenArticuloManu, List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles, List<PrecioArticuloManufacturado> precioArticuloManufacturados, RubroGeneral rubroGeneral) {
         this.idArticuloManufacturado = idArticuloManufacturado;
         this.tiempoEstimadoCocina = tiempoEstimadoCocina;
         this.denominacionArticuloManu = denominacionArticuloManu;
         this.imagenArticuloManu = imagenArticuloManu;
         this.bajaArticuloManu = false;
+        this.articuloManufacturadoDetalles = articuloManufacturadoDetalles;
+        this.precioArticuloManufacturados = precioArticuloManufacturados;
+        this.rubroGeneral = rubroGeneral;
     }
 }
