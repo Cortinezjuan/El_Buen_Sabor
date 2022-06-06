@@ -3,11 +3,8 @@ package com.app.elbuensabor.Entidad;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -19,4 +16,8 @@ public class Promo {
     private int idPromo;
     private double descuentoPromo;
     private boolean bajaPromo;
+
+    //RELACIONES
+    @OneToMany
+    private List<DetallePromo> detallesPromo;
 }

@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Setter
@@ -24,4 +21,12 @@ public class DetallePromo {
     private int idPromo;
     private int idArticuloInsumo;
     private int idArticuloManufacturado;
+
+    //RELACIONES
+    @OneToOne
+    private ArticuloInsumo articuloInsumo;
+    @OneToOne
+    private ArticuloManufacturado articuloManufacturado;
+    @ManyToOne
+    private Promo promo;
 }
