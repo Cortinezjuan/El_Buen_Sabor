@@ -16,9 +16,10 @@ public class EstadoPedido {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idEstadoPedido;
-    @OneToMany
+    @ManyToOne()
+    @JoinColumn(name="idEstado")
     private Estado estado;
 
-    //relacion pendiente con la clase Pedido
-    private int idPedido;
+    @ManyToOne
+    private Pedido pedido;
 }
