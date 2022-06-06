@@ -3,10 +3,8 @@ package com.app.elbuensabor.Entidad;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +24,13 @@ public class ArticuloInsumo {
     private boolean esArticuloInsumo;
     private boolean bajaArticuloInsumo;
 
-    public ArticuloInsumo(int idArticuloInsumo, int idRubroArticulo, String denominacionArticuloInsumo, String imagenArticuloInsumo, double stockActual, double stockMinimo, String unidadMedidaArticuloInsumo, boolean esArticuloInsumo, boolean bajaArticuloInsumo) {
+    //RELACIONES
+    @OneToMany
+    private List<PrecioArticuloInsumo> preciosArticulosInsumo;
+    @ManyToOne
+    private RubroArticulo rubroArticulo;
+
+    public ArticuloInsumo(int idArticuloInsumo, int idRubroArticulo, String denominacionArticuloInsumo, String imagenArticuloInsumo, double stockActual, double stockMinimo, String unidadMedidaArticuloInsumo, boolean esArticuloInsumo) {
         this.idArticuloInsumo = idArticuloInsumo;
         this.idRubroArticulo = idRubroArticulo;
         this.denominacionArticuloInsumo = denominacionArticuloInsumo;
