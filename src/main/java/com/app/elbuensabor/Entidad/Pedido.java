@@ -16,7 +16,6 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPedido;
-    private int idDomicilioEntrega;
     @Temporal(TemporalType.DATE)
     private Date fechaPedido;
     private int numeroPedido;
@@ -41,8 +40,7 @@ public class Pedido {
     @JoinColumn(name="idPedido")
     private List<EstadoPedido> estadoPedidos;
 
-    public Pedido(int idPedido, int idDomicilioEntrega, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio) {
-        this.idDomicilioEntrega = idDomicilioEntrega;
+    public Pedido(int idPedido, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio) {
         this.fechaPedido = fechaPedido;
         this.numeroPedido = numeroPedido;
         this.estadoPedido = estadoPedido;

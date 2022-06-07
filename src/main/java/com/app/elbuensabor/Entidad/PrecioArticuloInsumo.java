@@ -17,7 +17,6 @@ public class PrecioArticuloInsumo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPrecio;
-    private int idArticuloInsumo;
     private double precioCostoArticuloInsumo;
     private double precioVentaArticuloInsumo;
     @Temporal(TemporalType.DATE)

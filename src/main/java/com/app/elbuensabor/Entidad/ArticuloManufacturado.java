@@ -25,10 +25,8 @@ private boolean bajaArticuloManu;
 //Relaciones
     @OneToMany
     private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
-
     @OneToMany
     private List<PrecioArticuloManufacturado> precioArticuloManufacturados;
-
     @ManyToOne
     private RubroGeneral rubroGeneral;
 

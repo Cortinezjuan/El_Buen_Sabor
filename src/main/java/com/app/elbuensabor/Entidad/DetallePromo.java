@@ -18,8 +18,6 @@ public class DetallePromo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idDetallePromo;
-    private int idArticuloInsumo;
-    private int idArticuloManufacturado;
 
     //RELACIONES
     @OneToOne
