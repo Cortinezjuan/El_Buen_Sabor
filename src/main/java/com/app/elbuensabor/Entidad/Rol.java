@@ -22,10 +22,8 @@ public class Rol {
     @OneToMany
     private List<Usuario> usuarios;
 
-    public Rol(int idRol, String descripcion, List<Usuario> usuarios) {
-        this.idRol = idRol;
+    public Rol(String descripcion) {
         this.descripcion = descripcion;
         this.bajaRol = false;
-        this.usuarios = usuarios;
     }
 }
