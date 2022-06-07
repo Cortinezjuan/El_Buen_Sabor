@@ -4,6 +4,7 @@ import com.app.elbuensabor.Entidad.RubroArticulo;
 import com.app.elbuensabor.Servicio.RubroArticuloServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,11 @@ public class RubroArticuloControlador {
     @GetMapping("/listarRubrosArticulos")
     public List<RubroArticulo> listarRubrosArticulos() {
         return rubroArticuloServicio.listarRubrosArticulos();
+    }
+
+    @GetMapping("/listarSubRubrosXId/{id}")
+    public List<RubroArticulo> listarSubRubrosPorId(@PathVariable("id") int id) {
+        return rubroArticuloServicio.listarSubRubrosPorId(id);
     }
 
     @GetMapping("/listarRubroArticuloXId/{id}")

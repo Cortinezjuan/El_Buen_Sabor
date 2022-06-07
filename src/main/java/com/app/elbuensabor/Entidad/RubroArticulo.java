@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -26,4 +27,6 @@ public class RubroArticulo {
     private RubroArticulo rubroArticuloPadre;
     @OneToMany
     private List<RubroArticulo> rubrosArticulosHijos;
+
+
 }
