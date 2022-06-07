@@ -25,6 +25,7 @@ public class Usuario {
 
     //Relaciones
     @OneToMany
+    @JoinColumn(name="idUsuario")
     private List<Domicilio> domicilios;
     @ManyToOne
     @JoinColumn(name="idRol", referencedColumnName = "idRol")

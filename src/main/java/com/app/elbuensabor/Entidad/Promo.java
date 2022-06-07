@@ -18,6 +18,6 @@ public class Promo {
     private boolean bajaPromo;
 
     //RELACIONES
-    @OneToMany
+    @OneToMany(mappedBy = "promo", cascade = CascadeType.ALL)
     private List<DetallePromo> detallesPromo;
 }

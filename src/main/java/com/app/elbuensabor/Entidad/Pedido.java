@@ -29,14 +29,14 @@ public class Pedido {
     //RELACIONES
     @OneToOne
     private Factura factura;
-    @OneToMany
+    @OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)
     private List<DetallePedido> detalles;
     @ManyToOne
     private Usuario usuario;
     @OneToOne
     private Domicilio domicilio;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany()
     @JoinColumn(name="idPedido")
     private List<EstadoPedido> estadoPedidos;
 

@@ -20,7 +20,7 @@ public class RubroGeneral {
     private boolean bajaRubroGeneral;
 
     //Relación
-    @OneToMany
+    @OneToMany(mappedBy = "rubroGeneral", cascade = CascadeType.ALL)
     private List<ArticuloManufacturado> articuloManufacturados;
 
     public RubroGeneral(int idRubroGeneral, String denominacionRubroGeneral) {

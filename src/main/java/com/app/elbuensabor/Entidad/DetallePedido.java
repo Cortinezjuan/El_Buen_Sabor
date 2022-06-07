@@ -19,7 +19,7 @@ public class DetallePedido {
     private int cantidadDetallePedido;
 
     //Relaciones
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="idPedido", referencedColumnName = "idPedido")
     private Pedido pedido;
 

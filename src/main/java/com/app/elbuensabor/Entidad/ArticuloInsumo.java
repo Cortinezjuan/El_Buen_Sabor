@@ -24,7 +24,8 @@ public class ArticuloInsumo {
     private boolean bajaArticuloInsumo;
 
     //RELACIONES
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="idArticuloInsumo")
     private List<PrecioArticuloInsumo> preciosArticulosInsumo;
     @ManyToOne
     @JoinColumn(name="idRubroArticulo", referencedColumnName = "idRubroArticulo")
