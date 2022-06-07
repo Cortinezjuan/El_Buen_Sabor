@@ -21,9 +21,12 @@ public class DetallePromo {
 
     //RELACIONES
     @OneToOne
+    @JoinColumn(name="idArticuloInsumo", referencedColumnName = "idArticuloInsumo")
     private ArticuloInsumo articuloInsumo;
     @OneToOne
+    @JoinColumn(name="idArticuloManufacturado", referencedColumnName = "idArticuloManufacturado")
     private ArticuloManufacturado articuloManufacturado;
     @ManyToOne
+    @JoinColumn(name="idPromo", referencedColumnName = "idPromo")
     private Promo promo;
 }

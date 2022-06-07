@@ -23,6 +23,7 @@ public class RubroArticulo {
     @OneToMany
     private List<ArticuloInsumo> articulosInsumo;
     @OneToOne
+    @JoinColumn(name="idRubroArticuloPadre")
     private RubroArticulo rubroArticuloPadre;
     @OneToMany
     private List<RubroArticulo> rubrosArticulosHijos;

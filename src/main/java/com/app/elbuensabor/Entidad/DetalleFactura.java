@@ -18,10 +18,6 @@ public class DetalleFactura {
     private int idDetalleFactura;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="idFactura", referencedColumnName = "idFactura")
-    private Factura factura;
-
-    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idPago", referencedColumnName = "idPago")
     private Pago pago;
 

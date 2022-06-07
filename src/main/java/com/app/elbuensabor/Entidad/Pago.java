@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Setter
 @Getter
@@ -19,4 +16,12 @@ public class Pago {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idPago;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idMercadoPago", referencedColumnName = "idMercadoPago")
+    private MercadoPago mercadoPago;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idEfectivo", referencedColumnName = "idEfectivo")
+    private Efectivo efectivo;
 }

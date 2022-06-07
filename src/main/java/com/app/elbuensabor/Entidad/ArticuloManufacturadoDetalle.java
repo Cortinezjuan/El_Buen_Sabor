@@ -22,5 +22,6 @@ public class ArticuloManufacturadoDetalle {
 
     //RELACIONES
     @OneToOne
+    @JoinColumn(name="idArticuloInsumo", referencedColumnName = "idArticuloInsumo")
     private ArticuloInsumo articuloInsumo;
 }
