@@ -16,6 +16,8 @@ public class Efectivo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idEfectivo;
-    @OneToOne
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idPago", referencedColumnName = "idPago")
     private Pago pago;
 }

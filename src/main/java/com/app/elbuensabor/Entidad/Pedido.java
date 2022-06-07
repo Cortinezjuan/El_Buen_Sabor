@@ -39,6 +39,10 @@ public class Pedido {
     @OneToOne
     private Domicilio domicilio;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="idPedido")
+    private List<EstadoPedido> estadoPedidos;
+
     public Pedido(int idPedido, int idUsuario, int idFactura, int idDomicilioEntrega, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio) {
         this.idPedido = idPedido;
         this.idUsuario = idUsuario;

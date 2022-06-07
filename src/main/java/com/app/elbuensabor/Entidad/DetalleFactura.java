@@ -16,9 +16,14 @@ public class DetalleFactura {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idDetalleFactura;
-    @OneToOne
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idFactura", referencedColumnName = "idFactura")
     private Factura factura;
-    @OneToOne
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idPago", referencedColumnName = "idPago")
     private Pago pago;
+
     private int cantidadDetalleFactura;
 }

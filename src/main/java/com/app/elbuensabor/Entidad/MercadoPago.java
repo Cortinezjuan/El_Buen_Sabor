@@ -17,8 +17,11 @@ public class MercadoPago {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idMercadoPago;
-    @OneToOne
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idPago", referencedColumnName = "idPago")
     private Pago pago;
+
     private String identificadorPago;
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;

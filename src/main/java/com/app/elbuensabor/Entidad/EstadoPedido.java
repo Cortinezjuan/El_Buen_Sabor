@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,10 +17,9 @@ public class EstadoPedido {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idEstadoPedido;
-    @ManyToOne()
-    @JoinColumn(name="idEstado")
-    private Estado estado;
 
-    @ManyToOne
-    private Pedido pedido;
+   @OneToMany(mappedBy = "estadoPedido", cascade = CascadeType.ALL)
+   private List<Estado> estados;
+
+
 }

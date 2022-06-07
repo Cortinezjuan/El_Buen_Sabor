@@ -18,7 +18,8 @@ public class Estado {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idEstado;
     private String estado;
-    @OneToMany(mappedBy = "estado", cascade=CascadeType.ALL)
-    private List<EstadoPedido> estadoPedido;
 
+    @ManyToOne()
+    @JoinColumn(name="idEstadoPedido")
+    private EstadoPedido estadoPedido;
 }
