@@ -19,13 +19,11 @@ public class Rol {
     private boolean bajaRol;
 
     //Relaciones
-    @OneToMany
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
     private List<Usuario> usuarios;
 
-    public Rol(int idRol, String descripcion, List<Usuario> usuarios) {
-        this.idRol = idRol;
+    public Rol(String descripcion) {
         this.descripcion = descripcion;
         this.bajaRol = false;
-        this.usuarios = usuarios;
     }
 }

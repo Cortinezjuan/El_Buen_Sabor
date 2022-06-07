@@ -20,6 +20,4 @@ public class EstadoPedido {
 
    @OneToMany(mappedBy = "estadoPedido", cascade = CascadeType.ALL)
    private List<Estado> estados;
-
-
 }

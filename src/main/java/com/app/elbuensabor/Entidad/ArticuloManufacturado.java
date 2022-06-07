@@ -23,11 +23,14 @@ private String imagenArticuloManu;
 private boolean bajaArticuloManu;
 
 //Relaciones
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="idArticuloManufacturado")
     private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="idArticuloManufacturado")
     private List<PrecioArticuloManufacturado> precioArticuloManufacturados;
     @ManyToOne
+    @JoinColumn(name="idRubroGeneral", referencedColumnName = "idRubroGeneral")
     private RubroGeneral rubroGeneral;
 
     public ArticuloManufacturado(int idArticuloManufacturado, int tiempoEstimadoCocina, String denominacionArticuloManu, String imagenArticuloManu, List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles, List<PrecioArticuloManufacturado> precioArticuloManufacturados, RubroGeneral rubroGeneral) {
