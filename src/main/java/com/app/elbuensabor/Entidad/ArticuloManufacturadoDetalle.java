@@ -18,7 +18,6 @@ public class ArticuloManufacturadoDetalle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idArticuloManufacturadoDetalle;
     private int idArticuloManufacturado;
-    private int idArticuloInsumo;
     private int cantidadArticuloManuDetalle;
     private String unidadMedidaArticuloManuDetalle;
 

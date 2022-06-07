@@ -23,5 +23,4 @@ public class PrecioArticuloInsumo {
     @Temporal(TemporalType.DATE)
     private Date fechaPrecioArtInsumo;
     private double cantidadPrecioArtInsumo;
-
 }

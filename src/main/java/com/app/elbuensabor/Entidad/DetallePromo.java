@@ -18,7 +18,6 @@ public class DetallePromo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idDetallePromo;
-    private int idPromo;
     private int idArticuloInsumo;
     private int idArticuloManufacturado;
 

@@ -15,7 +15,6 @@ public class ArticuloInsumo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idArticuloInsumo;
-    private int idRubroArticulo;
     private String denominacionArticuloInsumo;
     private String imagenArticuloInsumo;
     private double stockActual;
@@ -30,9 +29,8 @@ public class ArticuloInsumo {
     @ManyToOne
     private RubroArticulo rubroArticulo;
 
-    public ArticuloInsumo(int idArticuloInsumo, int idRubroArticulo, String denominacionArticuloInsumo, String imagenArticuloInsumo, double stockActual, double stockMinimo, String unidadMedidaArticuloInsumo, boolean esArticuloInsumo) {
+    public ArticuloInsumo(int idArticuloInsumo, String denominacionArticuloInsumo, String imagenArticuloInsumo, double stockActual, double stockMinimo, String unidadMedidaArticuloInsumo, boolean esArticuloInsumo) {
         this.idArticuloInsumo = idArticuloInsumo;
-        this.idRubroArticulo = idRubroArticulo;
         this.denominacionArticuloInsumo = denominacionArticuloInsumo;
         this.imagenArticuloInsumo = imagenArticuloInsumo;
         this.stockActual = stockActual;
