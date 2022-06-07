@@ -22,8 +22,13 @@ public class Factura {
     private double totalCosto;
     private boolean bajaFactura;
 
-    public Factura(int idFactura, Date fechaFactura, int numeroFactura, double porcentajeDescuento, double totalVenta, double totalCosto) {
+    @OneToOne()
+    @JoinColumn(name="idDetalleFactura", referencedColumnName = "idDetalleFactura")
+    private DetalleFactura detalleFactura;
+
+    public Factura(int idFactura, DetalleFactura detalleFactura, Date fechaFactura, int numeroFactura, double porcentajeDescuento, double totalVenta, double totalCosto) {
         this.idFactura = idFactura;
+        this.detalleFactura = detalleFactura;
         this.fechaFactura = fechaFactura;
         this.numeroFactura = numeroFactura;
         this.porcentajeDescuento = porcentajeDescuento;
