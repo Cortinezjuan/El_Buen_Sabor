@@ -28,6 +28,7 @@ public class Usuario {
     private List<Domicilio> domicilios;
 
     @ManyToOne
+    @JoinColumn(name="idRol", referencedColumnName = "idRol")
     private Rol rol;
 
     public Usuario(int idUsuario, String nombres, String apellidos, String clave, String email, String usuario, int telefono, List<Domicilio> domicilios, Rol rol) {
