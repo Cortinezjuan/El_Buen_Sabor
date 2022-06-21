@@ -1,9 +1,14 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Servicio.PedidoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,4 +43,20 @@ public class PedidoControlador {
     public Pedido modificarPedido(@RequestBody Pedido pedido) {
         return pedidoServicio.modificarPedido(pedido);
     }
+
+    @GetMapping("/pedidosPorUsuario")
+    public List<PedidoDto> pedidosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+        Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+        Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
+        return pedidoServicio.pedidosPorUsuario(fecha3, fecha4);
+    }
+
+    @GetMapping("/pedidosPorFechas")
+    public List<Pedido> pedidosPorFechas(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+        Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+        Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
+        return pedidoServicio.buscarPedidosPorFechas(fecha3, fecha4);
+    }
+
+
 }

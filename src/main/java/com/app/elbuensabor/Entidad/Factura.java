@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Setter
@@ -22,13 +23,13 @@ public class Factura {
     private double totalCosto;
     private boolean bajaFactura;
 
-    @OneToOne()
+    /*@OneToOne()
     @JoinColumn(name="idDetalleFactura", referencedColumnName = "idDetalleFactura")
-    private DetalleFactura detalleFactura;
+    private DetalleFactura detalleFactura;*/
 
     public Factura(int idFactura, DetalleFactura detalleFactura, Date fechaFactura, int numeroFactura, double porcentajeDescuento, double totalVenta, double totalCosto) {
         this.idFactura = idFactura;
-        this.detalleFactura = detalleFactura;
+        //this.detalleFactura = detalleFactura;
         this.fechaFactura = fechaFactura;
         this.numeroFactura = numeroFactura;
         this.porcentajeDescuento = porcentajeDescuento;

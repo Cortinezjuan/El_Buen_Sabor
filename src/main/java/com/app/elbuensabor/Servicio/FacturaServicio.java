@@ -5,6 +5,10 @@ import com.app.elbuensabor.Repositorio.FacturaRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,4 +38,13 @@ public class FacturaServicio {
     public Factura modificarFactura(Factura factura){
         return facturaRepositorio.save(factura);
     }
+
+    public Double ingresosPorPeriodo(Date fecha1, Date fecha2) {
+           return facturaRepositorio.ingresosPorPeriodo(fecha1, fecha2);
+    }
+
+    public Double gananciaPorPeriodo(Date fecha1, Date fecha2) {
+        return facturaRepositorio.gananciaPorPeriodo(fecha1, fecha2);
+    }
+
 }

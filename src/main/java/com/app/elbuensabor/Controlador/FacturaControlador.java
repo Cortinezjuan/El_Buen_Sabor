@@ -5,6 +5,10 @@ import com.app.elbuensabor.Servicio.FacturaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +27,23 @@ public class FacturaControlador {
     public Optional<Factura> listarFacturaPorId(@PathVariable("id") int id) {
         return facturaServicio.listarFacturaPorId(id);
     }
+
+    @GetMapping("/ingresosPorPeriodo")
+    public Double ingresosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+        Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+        Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
+        return facturaServicio.ingresosPorPeriodo(fecha3, fecha4);
+    }
+
+    @GetMapping("/gananciaPorPeriodo")
+    public Double gananciasPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+        Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+        Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
+        return facturaServicio.gananciaPorPeriodo(fecha3, fecha4);
+    }
+
+
+
 
     @PostMapping("/crearFactura")
     public Factura crearFactura(@RequestBody Factura factura) {
