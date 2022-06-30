@@ -1,8 +1,10 @@
 package com.app.elbuensabor.Controlador;
 
 import com.app.elbuensabor.Entidad.Factura;
+import com.app.elbuensabor.Servicio.EnvioMail;
 import com.app.elbuensabor.Servicio.FacturaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class FacturaControlador {
     @Autowired
     FacturaServicio facturaServicio;
+    @Autowired
+    EnvioMail envioMail;
 
     @GetMapping("/listarFacturas")
     public List<Factura> listarFacturas() {
@@ -42,7 +46,10 @@ public class FacturaControlador {
         return facturaServicio.gananciaPorPeriodo(fecha3, fecha4);
     }
 
-
+    @GetMapping("/sendMail")
+    public void envioMail(@RequestParam(name="mail",required = false)String mail,@RequestParam(name="subject",required = false)String subject,@RequestParam(name="content",required = false)String content ){
+        envioMail.sendEmail(mail,subject,content);
+    }
 
 
     @PostMapping("/crearFactura")

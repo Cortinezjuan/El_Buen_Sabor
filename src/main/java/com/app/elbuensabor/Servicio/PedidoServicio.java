@@ -1,6 +1,5 @@
 package com.app.elbuensabor.Servicio;
 
-import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Repositorio.PedidoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class PedidoServicio {
         return pedidoRepositorio.save(pedido);
     }
 
-    public List<PedidoDto> pedidosPorUsuario(Date fecha1, Date fecha2) {
+    public List<Pedido> pedidosPorUsuario(Date fecha1, Date fecha2) {
           return pedidoRepositorio.buscarPedidosAgrupadosPorId(fecha1, fecha2);
     }
 

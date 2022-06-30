@@ -1,6 +1,5 @@
 package com.app.elbuensabor.Controlador;
 
-import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Servicio.PedidoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ public class PedidoControlador {
     }
 
     @GetMapping("/pedidosPorUsuario")
-    public List<PedidoDto> pedidosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+    public List<Pedido> pedidosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
         Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
         Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
         return pedidoServicio.pedidosPorUsuario(fecha3, fecha4);
