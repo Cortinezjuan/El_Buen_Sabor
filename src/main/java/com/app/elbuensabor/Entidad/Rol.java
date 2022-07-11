@@ -1,8 +1,6 @@
 package com.app.elbuensabor.Entidad;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +8,8 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Rol {
     @Id
@@ -19,8 +19,8 @@ public class Rol {
     private boolean bajaRol;
 
     //Relaciones
-    @OneToMany
-    private List<Usuario> usuarios;
+//    @OneToMany
+//    private List<Usuario> usuarios;
 
     public Rol(String descripcion) {
         this.descripcion = descripcion;

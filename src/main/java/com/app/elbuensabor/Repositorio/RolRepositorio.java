@@ -6,9 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface RolRepositorio extends JpaRepository<Rol, Integer> {
 
     @Query(value="SELECT * FROM rol WHERE baja_rol = false", nativeQuery = true)
     List<Rol> listarRoles();
+
+    public Rol findBydescripcion(String descripcion);
 }

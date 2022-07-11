@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Servicio.PedidoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/pedido")
 public class PedidoControlador {
 
     @Autowired
@@ -43,15 +45,15 @@ public class PedidoControlador {
         return pedidoServicio.modificarPedido(pedido);
     }
 
-    @GetMapping("/pedidosPorUsuario")
-    public List<Pedido> pedidosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
-        Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
-        Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
-        return pedidoServicio.pedidosPorUsuario(fecha3, fecha4);
-    }
+//    @GetMapping("/pedidosPorUsuario")
+//    public List<PedidosPorUsuariosDto> pedidosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+//        Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+//        Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
+//        return pedidoServicio.pedidosPorUsuario(fecha3, fecha4);
+//    }
 
     @GetMapping("/pedidosPorFechas")
-    public List<Pedido> pedidosPorFechas(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
+    public List<String> pedidosPorFechas(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
         Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
         Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
         return pedidoServicio.buscarPedidosPorFechas(fecha3, fecha4);

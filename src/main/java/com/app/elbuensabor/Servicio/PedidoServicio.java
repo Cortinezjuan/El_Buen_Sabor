@@ -1,14 +1,13 @@
 package com.app.elbuensabor.Servicio;
 
+import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
+import com.app.elbuensabor.Entidad.DetallePedido;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Repositorio.PedidoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PedidoServicio {
@@ -38,11 +37,22 @@ public class PedidoServicio {
         return pedidoRepositorio.save(pedido);
     }
 
-    public List<Pedido> pedidosPorUsuario(Date fecha1, Date fecha2) {
-          return pedidoRepositorio.buscarPedidosAgrupadosPorId(fecha1, fecha2);
-    }
+//    public List<PedidosPorUsuariosDto> pedidosPorUsuario(Date fecha1, Date fecha2) {
+//        List<PedidosPorUsuariosDto> dtos =pedidoRepositorio.buscarPedidosAgrupadosPorId(fecha1,fecha2).stream().map(entity-> pedidoMapper.pedidoToPedidoPorUsuarioDto(entity)).collect(Collectors.toList());
+//        return dtos;
+//
+//    }
 
-    public List<Pedido>buscarPedidosPorFechas(Date fecha1, Date fecha2){
-        return pedidoRepositorio.buscarPedidosPorFechas(fecha1,fecha2);
+    public List<String>buscarPedidosPorFechas(Date fecha1, Date fecha2){
+        List<Pedido> pedidosDB = pedidoRepositorio.buscarPedidosPorFechas(fecha1,fecha2);
+        List<String> comidas = new ArrayList<>();
+        for(Pedido aux: pedidosDB){
+            for(DetallePedido comidasRanking: aux.getDetalles()){
+                comidas.add(comidasRanking.getArticuloManufacturado().getDenominacionArticuloManu());
+            }
+        }
+        Collections.sort(comidas);
+
+        return comidas;
     }
 }

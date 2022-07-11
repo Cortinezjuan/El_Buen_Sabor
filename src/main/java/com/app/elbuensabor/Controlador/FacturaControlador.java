@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/factura")
 public class FacturaControlador {
     @Autowired
     FacturaServicio facturaServicio;

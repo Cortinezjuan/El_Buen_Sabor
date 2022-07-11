@@ -24,7 +24,11 @@ public class Pedido {
     private Date horaEstimadaFinPedido;
     private int tipoEnvio;
     private double totalPedido;
+    @Column(name="baja_pedido")
     private boolean bajaPedido;
+    @Transient
+    @Column(name="cantidad_pedidos")
+    private int cantPedidos;
 
     //RELACIONES
     @OneToOne
@@ -32,15 +36,16 @@ public class Pedido {
     @OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)
     private List<DetallePedido> detalles;
     @ManyToOne
+    @JoinColumn(name="idUsuario")
     private Usuario usuario;
     @OneToOne
+    @JoinColumn(name="idDomicilio")
     private Domicilio domicilio;
-
     @OneToMany()
     @JoinColumn(name="idPedido")
     private List<EstadoPedido> estadoPedidos;
 
-    public Pedido(int idPedido, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio) {
+    public Pedido(int idPedido, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio,int cantPedidos) {
         this.fechaPedido = fechaPedido;
         this.numeroPedido = numeroPedido;
         this.estadoPedido = estadoPedido;
@@ -52,5 +57,6 @@ public class Pedido {
         this.detalles = detalles;
         this.usuario = usuario;
         this.domicilio = domicilio;
+        this.cantPedidos = cantPedidos;
     }
 }

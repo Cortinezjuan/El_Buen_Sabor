@@ -19,8 +19,8 @@ public class DetallePedido {
     private int cantidadDetallePedido;
 
     //Relaciones
-    @ManyToOne()
-    @JoinColumn(name="idPedido", referencedColumnName = "idPedido")
+    @ManyToOne
+    @JoinColumn(name="id_pedido")
     private Pedido pedido;
 
     @OneToOne

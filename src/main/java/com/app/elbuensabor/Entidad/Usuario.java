@@ -1,16 +1,17 @@
 package com.app.elbuensabor.Entidad;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +42,8 @@ public class Usuario {
         this.bajaUsuario = false;
         this.domicilios = domicilios;
         this.rol = rol;
+    }
+
+    public Usuario(String usuario, String clave, Set grantList) {
     }
 }
