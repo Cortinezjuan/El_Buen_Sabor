@@ -39,8 +39,8 @@ public class UsuarioServicio {
     }
 
     public ResponseEntity<CrearUsuarioDto> crearUsuario(CrearUsuarioDto dto){
-        String password = dto.getClave();
-        String passEncriptada = passwordEncoders.encode(password);
+
+        String passEncriptada = passwordEncoders.encode(dto.getClave());
         Rol rolEncontrado = rolRepositorio.findBydescripcion(dto.getRol());
         List<Domicilio> domicilios = new ArrayList<>();
         domicilios.add(dto.getDomicilio());
@@ -79,7 +79,8 @@ public class UsuarioServicio {
              LoginDto loginDto = LoginDto.builder()
                      .usuario(usuarioEncontrado.getUsuario())
                      .clave(usuarioEncontrado.getClave())
-                     .rol(usuarioEncontrado.getRol().getDescripcion()).build();
+                     .rol(usuarioEncontrado.getRol().getDescripcion())
+                     .build();
              return loginDto;
          }else
 
