@@ -9,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class PedidosPorUsuariosDto {
-    private int id_pedido;
     private int id_usuario;
-    private int cantidad_Pedidos;
+    private String nombreUsuario;
+    private String apellidoUsuario;
+    private int cantidadPedidos;
 }

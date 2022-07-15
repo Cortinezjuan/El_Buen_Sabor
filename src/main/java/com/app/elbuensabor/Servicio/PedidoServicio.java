@@ -1,6 +1,7 @@
 package com.app.elbuensabor.Servicio;
 
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
+import com.app.elbuensabor.Dto.RankingComidasDto;
 import com.app.elbuensabor.Entidad.DetallePedido;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Repositorio.PedidoRepositorio;
@@ -37,21 +38,33 @@ public class PedidoServicio {
         return pedidoRepositorio.save(pedido);
     }
 
-//    public List<PedidosPorUsuariosDto> pedidosPorUsuario(Date fecha1, Date fecha2) {
-//        List<PedidosPorUsuariosDto> dtos =pedidoRepositorio.buscarPedidosAgrupadosPorId(fecha1,fecha2).stream().map(entity-> pedidoMapper.pedidoToPedidoPorUsuarioDto(entity)).collect(Collectors.toList());
-//        return dtos;
-//
-//    }
-
-    public List<String>buscarPedidosPorFechas(Date fecha1, Date fecha2){
-        List<Pedido> pedidosDB = pedidoRepositorio.buscarPedidosPorFechas(fecha1,fecha2);
-        List<String> comidas = new ArrayList<>();
-        for(Pedido aux: pedidosDB){
-            for(DetallePedido comidasRanking: aux.getDetalles()){
-                comidas.add(comidasRanking.getArticuloManufacturado().getDenominacionArticuloManu());
-            }
+    public List<PedidosPorUsuariosDto> pedidosPorUsuario(Date fecha1, Date fecha2) {
+        List<String> pedidosDB = pedidoRepositorio.buscarPedidosAgrupadosPorId(fecha1,fecha2);
+        List<PedidosPorUsuariosDto> pedidos = new ArrayList<>();
+        for(String aux: pedidosDB){
+            String[] textElement = aux.split(",");
+            PedidosPorUsuariosDto pedidoDto = PedidosPorUsuariosDto.builder()
+                    .id_usuario(Integer.parseInt(textElement[0]))
+                    .nombreUsuario(textElement[1])
+                    .apellidoUsuario(textElement[2])
+                    .cantidadPedidos(Integer.parseInt(textElement[3]))
+                    .build();
+            pedidos.add(pedidoDto);
         }
-        Collections.sort(comidas);
+        return pedidos;
+    }
+
+    public List<RankingComidasDto>rankingComidasPorFechas(Date fecha1, Date fecha2){
+        List<String> pedidosDB = pedidoRepositorio.rankingComidasPorFechas(fecha1,fecha2);
+        List<RankingComidasDto> comidas = new ArrayList<>();
+        for(String aux: pedidosDB){
+            String[] textElement = aux.split(",");
+            RankingComidasDto comidaDto = RankingComidasDto.builder()
+                    .nombreComida(textElement[0])
+                    .cantPedida(Integer.parseInt(textElement[1]))
+                    .build();
+            comidas.add(comidaDto);
+        }
 
         return comidas;
     }
