@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
 import com.app.elbuensabor.Entidad.ArticuloManufacturado;
 import com.app.elbuensabor.Servicio.ArticuloManufacturadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ArticuloManufacturadoControlador {
     ArticuloManufacturadoServicio articuloManufacturadoServicio;
 
     @GetMapping("/listarArticuloManufacturados")
-    public List<ArticuloManufacturado> listarArticuloManufacturados() {
+    public List<ArticuloManufacturadoDto> listarArticuloManufacturados() {
         return articuloManufacturadoServicio.listarArticuloManufacturados();
     }
 

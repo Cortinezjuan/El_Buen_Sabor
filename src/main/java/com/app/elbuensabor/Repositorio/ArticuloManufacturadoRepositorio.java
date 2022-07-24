@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ArticuloManufacturadoRepositorio extends JpaRepository<ArticuloManufacturado, Integer> {
 
-    @Query(value="SELECT * FROM articulo_manufacturado WHERE baja_articulo_manufacturado = false", nativeQuery = true)
+    @Query(value="SELECT * FROM articulo_manufacturado WHERE baja_articulo_manu = false", nativeQuery = true)
     List<ArticuloManufacturado> listarArticuloManufacturados();
 }

@@ -12,4 +12,9 @@ import java.util.List;
 public interface ArticuloInsumoRepositorio extends JpaRepository <ArticuloInsumo, Integer> {
     @Query(value="SELECT * FROM articulo_insumo WHERE baja_articulo_insumo = false", nativeQuery = true)
     List<ArticuloInsumo> listarArticulosInsumo();
+
+    @Query(value="SELECT stock_actual " +
+            "FROM articulo_insumo " +
+            "WHERE id_articulo_insumo = :idArticulo ", nativeQuery = true)
+    int findByIdArticuloInsumo(int idArticulo);
 }
