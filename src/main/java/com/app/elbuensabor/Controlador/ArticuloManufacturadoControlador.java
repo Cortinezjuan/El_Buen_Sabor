@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/articuloManufacturado")
 public class ArticuloManufacturadoControlador {
 
     @Autowired
@@ -26,7 +27,7 @@ public class ArticuloManufacturadoControlador {
         return articuloManufacturadoServicio.listarArticuloManufacturadoPorId(id);
     }
 
-    @PostMapping("/crearArticuloManufacturado")
+    @PostMapping("/articuloManufacturado")
     public ArticuloManufacturado crearArticuloManufacturado(@RequestBody ArticuloManufacturado articuloManufacturado) {
         return articuloManufacturadoServicio.guardarArticuloManufacturado(articuloManufacturado);
     }

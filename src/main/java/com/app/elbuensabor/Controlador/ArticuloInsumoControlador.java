@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.BebidaDto;
 import com.app.elbuensabor.Entidad.ArticuloInsumo;
 import com.app.elbuensabor.Servicio.ArticuloInsumoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/articuloInsumo")
 public class ArticuloInsumoControlador {
     
     @Autowired
@@ -17,6 +19,12 @@ public class ArticuloInsumoControlador {
     @GetMapping("/listarArticulosInsumo")
     public List<ArticuloInsumo> listarFacturas() {
         return articuloInsumoServicio.listarArticulosInsumo();
+    }
+
+    //lista solo las bebidas
+    @GetMapping("/listarBebidas")
+    public List<BebidaDto> listarBebidas(){
+        return articuloInsumoServicio.listarBebidas();
     }
 
     @GetMapping("/listarArticuloInsumoXId/{id}")
