@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,5 +21,6 @@ public class ArticuloManufacturadoDto {
     private String imagenArticuloManu;
     private double precioTotal;
     private int stock;
+    private List<String> insumos;
 
 }

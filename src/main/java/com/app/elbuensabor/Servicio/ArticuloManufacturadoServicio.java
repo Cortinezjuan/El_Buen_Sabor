@@ -29,13 +29,15 @@ public class ArticuloManufacturadoServicio {
         List <ArticuloManufacturado> articulos = articuloManufacturadoRepositorio.listarArticuloManufacturados();
 
         for(ArticuloManufacturado aux: articulos){
+            List<String> insumos = new ArrayList<>();
             int stockMinimo = 1000;
             for(ArticuloManufacturadoDetalle auxDetalle: aux.getArticuloManufacturadoDetalles()){
-                  int stockActual = articuloInsumoRepositorio.findByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
+                  int stockActual = articuloInsumoRepositorio.findStockByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
                   int cantidadAPreparar = stockActual*1000/auxDetalle.getCantidadArticuloManuDetalle();
                   if(cantidadAPreparar<stockMinimo){
                       stockMinimo = cantidadAPreparar;
                   }
+                  insumos.add(auxDetalle.getArticuloInsumo().getDenominacionArticuloInsumo());
             }
 
             if(stockMinimo > 0){
@@ -48,6 +50,7 @@ public class ArticuloManufacturadoServicio {
                         .tiempoEstimadoCocina(aux.getTiempoEstimadoCocina())
                         .precioTotal(precioArticulo)
                         .stock(stockMinimo)
+                        .insumos(insumos)
                         .build();
                 articulosDto.add(auxDto);
             }
