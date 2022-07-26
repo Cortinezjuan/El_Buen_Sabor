@@ -38,16 +38,20 @@ public class ArticuloManufacturadoServicio {
                   }
             }
 
-            Double precioArticulo = precioArticuloManufacturadoRepositorio.findByIdArticuloManufacturado(aux.getIdArticuloManufacturado());
-            ArticuloManufacturadoDto auxDto = ArticuloManufacturadoDto.builder()
-                    .imagenArticuloManu(aux.getImagenArticuloManu())
-                    .idArticuloManufacturado(aux.getIdArticuloManufacturado())
-                    .denominacionArticuloManu(aux.getDenominacionArticuloManu())
-                    .tiempoEstimadoCocina(aux.getTiempoEstimadoCocina())
-                    .precioTotal(precioArticulo)
-                    .stock(stockMinimo)
-                    .build();
-            articulosDto.add(auxDto);
+            if(stockMinimo > 0){
+                Double precioArticulo = precioArticuloManufacturadoRepositorio.findByIdArticuloManufacturado(aux.getIdArticuloManufacturado());
+
+                ArticuloManufacturadoDto auxDto = ArticuloManufacturadoDto.builder()
+                        .imagenArticuloManu(aux.getImagenArticuloManu())
+                        .idArticuloManufacturado(aux.getIdArticuloManufacturado())
+                        .denominacionArticuloManu(aux.getDenominacionArticuloManu())
+                        .tiempoEstimadoCocina(aux.getTiempoEstimadoCocina())
+                        .precioTotal(precioArticulo)
+                        .stock(stockMinimo)
+                        .build();
+                articulosDto.add(auxDto);
+            }
+
         }
         return articulosDto;
     }
