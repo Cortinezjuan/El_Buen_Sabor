@@ -1,6 +1,8 @@
 package com.app.elbuensabor.Servicio;
 
 import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
+import com.app.elbuensabor.Dto.CarritoDto;
+import com.app.elbuensabor.Entidad.ArticuloInsumo;
 import com.app.elbuensabor.Entidad.ArticuloManufacturado;
 import com.app.elbuensabor.Entidad.ArticuloManufacturadoDetalle;
 import com.app.elbuensabor.Repositorio.ArticuloInsumoRepositorio;
@@ -76,5 +78,20 @@ public class ArticuloManufacturadoServicio {
 
     public ArticuloManufacturado modificarArticuloManufacturado(ArticuloManufacturado articuloManufacturado){
         return articuloManufacturadoRepositorio.save(articuloManufacturado);
+    }
+
+    public List<CarritoDto> descontarStock(List<CarritoDto> carritosDto){
+        for(CarritoDto aux: carritosDto){
+            Optional<ArticuloManufacturado> articulo = articuloManufacturadoRepositorio.findById(aux.getId());
+            for(ArticuloManufacturadoDetalle insumo: articulo.get().getArticuloManufacturadoDetalles()){
+                double proporcion = insumo.getCantidadArticuloManuDetalle();
+                double cantADescontar = proporcion * aux.getCantidad();
+                double stockOriginal = insumo.getArticuloInsumo().getStockActual();
+                double stockActual = stockOriginal - cantADescontar/1000;
+                insumo.getArticuloInsumo().setStockActual(stockActual);
+                articuloInsumoRepositorio.save(insumo.getArticuloInsumo());
+            }
+        }
+        return carritosDto;
     }
 }

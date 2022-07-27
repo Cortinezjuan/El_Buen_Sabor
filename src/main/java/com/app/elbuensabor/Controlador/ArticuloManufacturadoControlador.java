@@ -1,6 +1,7 @@
 package com.app.elbuensabor.Controlador;
 
 import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
+import com.app.elbuensabor.Dto.CarritoDto;
 import com.app.elbuensabor.Entidad.ArticuloManufacturado;
 import com.app.elbuensabor.Servicio.ArticuloManufacturadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,11 @@ public class ArticuloManufacturadoControlador {
     @PutMapping("/modificarArticuloManufacturado")
     public ArticuloManufacturado modificarArticuloManufacturado(@RequestBody ArticuloManufacturado articuloManufacturado) {
         return articuloManufacturadoServicio.modificarArticuloManufacturado(articuloManufacturado);
+    }
+
+    @PutMapping("/descontarStock")
+    public List<CarritoDto> descontarStock(@RequestBody List<CarritoDto> carritosDto){
+
+         return articuloManufacturadoServicio.descontarStock(carritosDto);
     }
 }
