@@ -1,13 +1,20 @@
 package com.app.elbuensabor.Servicio;
 
+import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
 import com.app.elbuensabor.Entidad.DetallePedido;
+import com.app.elbuensabor.Entidad.Domicilio;
 import com.app.elbuensabor.Entidad.Pedido;
+import com.app.elbuensabor.Entidad.Usuario;
+import com.app.elbuensabor.Repositorio.DomicilioRepositorio;
 import com.app.elbuensabor.Repositorio.PedidoRepositorio;
+import com.app.elbuensabor.Repositorio.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -15,6 +22,10 @@ public class PedidoServicio {
 
     @Autowired
     PedidoRepositorio pedidoRepositorio;
+    @Autowired
+    UsuarioRepositorio usuarioRepositorio;
+    @Autowired
+    DomicilioRepositorio domicilioRepositorio;
 
     public List<Pedido> listarPedidos() {
         return pedidoRepositorio.listarPedidos();
@@ -24,8 +35,24 @@ public class PedidoServicio {
         return pedidoRepositorio.findById(id);
     }
 
-    public Pedido guardarPedido(Pedido pedido) {
-        return pedidoRepositorio.save(pedido);
+    public PedidoDto guardarPedido(PedidoDto pedidoDto) {
+        Usuario usuario = usuarioRepositorio.findByUsuario(pedidoDto.getNombreUsuario());
+        Domicilio domicilio = domicilioRepositorio.findByidUsuario(usuario.getIdUsuario());
+        Calendar calendar = Calendar.getInstance();
+        //calendar.setTime(new Date());
+        calendar.add(Calendar.MINUTE,pedidoDto.getHoraEstimadaFinPedido());
+
+        Pedido pedido = Pedido.builder()
+                .estadoPedido(1)
+                .fechaPedido(new Date())
+                .horaEstimadaFinPedido(calendar.getTime())
+                .tipoEnvio(1)
+                .totalPedido(pedidoDto.getTotalPedido())
+                .domicilio(domicilio)
+                .usuario(usuario)
+                .build();
+        pedidoRepositorio.save(pedido);
+        return pedidoDto;
     }
 
     public void borrarPedido(int id) {

@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
 import com.app.elbuensabor.Entidad.Pedido;
@@ -32,8 +33,8 @@ public class PedidoControlador {
     }
 
     @PostMapping("/crearPedido")
-    public Pedido crearPedido(@RequestBody Pedido pedido) {
-        return pedidoServicio.guardarPedido(pedido);
+    public PedidoDto crearPedido(@RequestBody PedidoDto pedidoDto) {
+        return pedidoServicio.guardarPedido(pedidoDto);
     }
 
     @DeleteMapping("/borrarPedido/{id}")

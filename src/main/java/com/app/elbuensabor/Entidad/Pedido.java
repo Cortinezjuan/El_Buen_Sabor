@@ -1,26 +1,28 @@
 package com.app.elbuensabor.Entidad;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPedido;
-    @Temporal(TemporalType.DATE)
+
     private Date fechaPedido;
     private int numeroPedido;
     private int estadoPedido;
-    @Temporal(TemporalType.DATE)
+
     private Date horaEstimadaFinPedido;
     private int tipoEnvio;
     private double totalPedido;

@@ -13,4 +13,7 @@ public interface DomicilioRepositorio extends JpaRepository<Domicilio, Integer> 
 
     @Query(value="SELECT * FROM domicilio WHERE baja_domicilio = false", nativeQuery = true)
     List<Domicilio> listarDomicilios();
+
+    @Query(value="SELECT * FROM domicilio WHERE id_usuario = :idUsuario", nativeQuery = true)
+    Domicilio findByidUsuario(int idUsuario);
 }
