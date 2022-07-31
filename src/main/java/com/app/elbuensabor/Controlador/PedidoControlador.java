@@ -61,5 +61,14 @@ public class PedidoControlador {
         return pedidoServicio.rankingComidasPorFechas(fecha3, fecha4);
     }
 
+    @GetMapping("/ultimoPedido")
+    public int pedidosPorPeriodo() {
+        return pedidoServicio.getIdUltimoPedido();
+    }
+
+    @GetMapping("/pagarPedido/{id}")
+    public void pagarPedido(@PathVariable("id") int id) {
+        pedidoServicio.borrarPedido(id);
+    }
 
 }

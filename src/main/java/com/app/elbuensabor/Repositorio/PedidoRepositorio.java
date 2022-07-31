@@ -36,5 +36,8 @@ public interface PedidoRepositorio  extends JpaRepository <Pedido, Integer> {
             "GROUP BY dp.`id_articulo_manufacturado` ORDER BY rankingComidas DESC  ", nativeQuery=true)
     List<String> rankingComidasPorFechas(Date fecha1, Date fecha2);
 
+    @Query(value="SELECT MAX(id_pedido) from pedido", nativeQuery = true)
+    int findIdUltimoPedido();
+
 
 }

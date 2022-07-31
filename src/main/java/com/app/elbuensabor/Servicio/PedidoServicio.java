@@ -11,6 +11,7 @@ import com.app.elbuensabor.Repositorio.DomicilioRepositorio;
 import com.app.elbuensabor.Repositorio.PedidoRepositorio;
 import com.app.elbuensabor.Repositorio.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.objenesis.ObjenesisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -80,7 +81,6 @@ public class PedidoServicio {
         }
         return pedidos;
     }
-
     public List<RankingComidasDto>rankingComidasPorFechas(Date fecha1, Date fecha2){
         List<String> pedidosDB = pedidoRepositorio.rankingComidasPorFechas(fecha1,fecha2);
         List<RankingComidasDto> comidas = new ArrayList<>();
@@ -94,5 +94,16 @@ public class PedidoServicio {
         }
 
         return comidas;
+    }
+
+    public int getIdUltimoPedido(){
+        return pedidoRepositorio.findIdUltimoPedido();
+    }
+
+    public void pagarPedido(int id){
+        System.out.println("id pedido" + id);
+       Optional<Pedido> pedido = pedidoRepositorio.findById(id);
+       pedido.get().setEstadoPedido(6);
+       pedidoRepositorio.save(pedido.get());
     }
 }
