@@ -3,6 +3,7 @@ package com.app.elbuensabor.Repositorio;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
 import com.app.elbuensabor.Entidad.Pedido;
+import com.app.elbuensabor.Entidad.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -39,5 +40,7 @@ public interface PedidoRepositorio  extends JpaRepository <Pedido, Integer> {
     @Query(value="SELECT MAX(id_pedido) from pedido", nativeQuery = true)
     int findIdUltimoPedido();
 
+    @Query(value="SELECT * from pedido WHERE id_usuario=:idUsuario", nativeQuery = true)
+    List<Pedido> findByidUsuario(int idUsuario);
 
 }

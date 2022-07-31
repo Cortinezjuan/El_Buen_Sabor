@@ -1,6 +1,7 @@
 package com.app.elbuensabor.Servicio;
 
 import com.app.elbuensabor.Dto.PedidoDto;
+import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
 import com.app.elbuensabor.Entidad.DetallePedido;
@@ -28,8 +29,28 @@ public class PedidoServicio {
     @Autowired
     DomicilioRepositorio domicilioRepositorio;
 
-    public List<Pedido> listarPedidos() {
-        return pedidoRepositorio.listarPedidos();
+
+    public List<PedidoRespDto> listarPedidos() {
+        List<Pedido> pedidos = pedidoRepositorio.listarPedidos();
+        List<PedidoRespDto> pedidosDto = new ArrayList<>();
+        for(Pedido aux:pedidos){
+            String estado ="";
+            if(aux.getEstadoPedido()==1)estado = "En Preparación";
+            if(aux.getEstadoPedido()==6)estado = "Pagado";
+            String horaFin = aux.getHoraEstimadaFinPedido().getHours()+":"+aux.getHoraEstimadaFinPedido().getMinutes();
+            String fechaInicio = String.valueOf(aux.getFechaPedido().getTime());
+            PedidoRespDto pedidoDto = PedidoRespDto.builder()
+                    .idPedido(aux.getIdPedido())
+                    .fechaPedido(aux.getFechaPedido().toString())
+                    .estadoPedido(estado)
+                    .numeroPedido(aux.getIdPedido())
+                    .horaEstimadaFinPedido(horaFin)
+                    .nombreUsuario(aux.getUsuario().getUsuario())
+                    .totalPedido(aux.getTotalPedido())
+                    .build();
+            pedidosDto.add(pedidoDto);
+        }
+        return pedidosDto;
     }
 
     public Optional<Pedido> listarPedidoPorId(int id) {
@@ -66,7 +87,7 @@ public class PedidoServicio {
         return pedidoRepositorio.save(pedido);
     }
 
-    public List<PedidosPorUsuariosDto> pedidosPorUsuario(Date fecha1, Date fecha2) {
+    public List<PedidosPorUsuariosDto> pedidosPorUsuarioPorFecha(Date fecha1, Date fecha2) {
         List<String> pedidosDB = pedidoRepositorio.buscarPedidosAgrupadosPorId(fecha1,fecha2);
         List<PedidosPorUsuariosDto> pedidos = new ArrayList<>();
         for(String aux: pedidosDB){
@@ -105,5 +126,28 @@ public class PedidoServicio {
        Optional<Pedido> pedido = pedidoRepositorio.findById(id);
        pedido.get().setEstadoPedido(6);
        pedidoRepositorio.save(pedido.get());
+    }
+
+    public List<PedidoRespDto> listarPedidosPorUsuario(String nombreUsuario) {
+        List<Pedido> pedidos = pedidoRepositorio.findByidUsuario(usuarioRepositorio.findByUsuario(nombreUsuario).getIdUsuario());
+        List<PedidoRespDto> pedidosDto = new ArrayList<>();
+        for(Pedido aux:pedidos){
+            String estado ="";
+            if(aux.getEstadoPedido()==1)estado = "En Preparación";
+            if(aux.getEstadoPedido()==6)estado = "Pagado";
+            String horaFin = aux.getHoraEstimadaFinPedido().getHours()+":"+aux.getHoraEstimadaFinPedido().getMinutes();
+            String fechaInicio = String.valueOf(aux.getFechaPedido().getTime());
+            PedidoRespDto pedidoDto = PedidoRespDto.builder()
+                    .idPedido(aux.getIdPedido())
+                    .fechaPedido(aux.getFechaPedido().toString())
+                    .estadoPedido(estado)
+                    .numeroPedido(aux.getIdPedido())
+                    .horaEstimadaFinPedido(horaFin)
+                    .nombreUsuario(aux.getUsuario().getUsuario())
+                    .totalPedido(aux.getTotalPedido())
+                    .build();
+            pedidosDto.add(pedidoDto);
+        }
+        return pedidosDto;
     }
 }

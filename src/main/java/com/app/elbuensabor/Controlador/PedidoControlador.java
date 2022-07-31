@@ -1,6 +1,7 @@
 package com.app.elbuensabor.Controlador;
 
 import com.app.elbuensabor.Dto.PedidoDto;
+import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
 import com.app.elbuensabor.Entidad.Pedido;
@@ -23,7 +24,7 @@ public class PedidoControlador {
     PedidoServicio pedidoServicio;
 
     @GetMapping("/listarPedidos")
-    public List<Pedido> listarPedidos() {
+    public List<PedidoRespDto> listarPedidos() {
         return pedidoServicio.listarPedidos();
     }
 
@@ -51,7 +52,7 @@ public class PedidoControlador {
     public List<PedidosPorUsuariosDto> pedidosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
         Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
         Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
-        return pedidoServicio.pedidosPorUsuario(fecha3, fecha4);
+        return pedidoServicio.pedidosPorUsuarioPorFecha(fecha3, fecha4);
     }
 
     @GetMapping("/pedidosPorFechas")
@@ -68,7 +69,12 @@ public class PedidoControlador {
 
     @GetMapping("/pagarPedido/{id}")
     public void pagarPedido(@PathVariable("id") int id) {
-        pedidoServicio.borrarPedido(id);
+        pedidoServicio.pagarPedido(id);
+    }
+
+    @GetMapping("/listarPedidosPorUsuario")
+    public List<PedidoRespDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
+        return pedidoServicio.listarPedidosPorUsuario(nombreUsuario);
     }
 
 }
