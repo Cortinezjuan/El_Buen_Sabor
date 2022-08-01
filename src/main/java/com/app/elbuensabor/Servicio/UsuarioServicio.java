@@ -3,6 +3,7 @@ package com.app.elbuensabor.Servicio;
 import com.app.elbuensabor.Dto.CrearUsuarioDto;
 import com.app.elbuensabor.Dto.LoginDto;
 import com.app.elbuensabor.Dto.LoginRequestDto;
+import com.app.elbuensabor.Dto.UsuarioDto;
 import com.app.elbuensabor.Entidad.Domicilio;
 import com.app.elbuensabor.Entidad.Rol;
 import com.app.elbuensabor.Entidad.Usuario;
@@ -85,5 +86,23 @@ public class UsuarioServicio {
          }else
 
              return null;
+    }
+
+    public List<UsuarioDto> listarUsuariosEmpleados(){
+        List<Usuario> usuarios = usuarioRepositorio.listarUsuariosEmpleados();
+        List<UsuarioDto> usuarioDtos = new ArrayList<>();
+        for(Usuario aux:usuarios){
+            UsuarioDto usuarioDto = UsuarioDto.builder()
+                    .idUsuario(aux.getIdUsuario())
+                    .nombres(aux.getNombres())
+                    .apellidos(aux.getApellidos())
+                    .email(aux.getEmail())
+                    .usuario(aux.getUsuario())
+                    .telefono(aux.getTelefono())
+                    .rol(aux.getRol().getDescripcion())
+                    .build();
+            usuarioDtos.add(usuarioDto);
+        }
+        return usuarioDtos;
     }
 }

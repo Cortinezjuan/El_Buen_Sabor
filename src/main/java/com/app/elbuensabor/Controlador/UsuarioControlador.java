@@ -1,8 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
-import com.app.elbuensabor.Dto.CrearUsuarioDto;
-import com.app.elbuensabor.Dto.LoginDto;
-import com.app.elbuensabor.Dto.LoginRequestDto;
+import com.app.elbuensabor.Dto.*;
 import com.app.elbuensabor.Entidad.Usuario;
 import com.app.elbuensabor.Excepciones.CredencialInvalidaException;
 //import com.app.elbuensabor.Servicio.AutenticacionService;
@@ -51,5 +49,10 @@ public class UsuarioControlador {
     @ResponseBody
     public LoginDto login (@RequestParam String usuario, @RequestParam String clave) throws CredencialInvalidaException{
         return usuarioServicio.login(usuario,clave);
+    }
+
+    @GetMapping("/listarUsuariosEmpleados")
+    public List<UsuarioDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
+        return usuarioServicio.listarUsuariosEmpleados();
     }
 }

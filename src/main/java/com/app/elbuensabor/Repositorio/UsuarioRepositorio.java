@@ -18,4 +18,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
     Usuario findByUsuario(String usuario);
 
+    @Query(value="SELECT * FROM usuario WHERE baja_usuario = false AND id_rol NOT LIKE '3'", nativeQuery = true)
+    List<Usuario> listarUsuariosEmpleados();
+
 }
