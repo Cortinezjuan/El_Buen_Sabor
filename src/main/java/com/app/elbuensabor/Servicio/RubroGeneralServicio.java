@@ -2,9 +2,7 @@ package com.app.elbuensabor.Servicio;
 
 import com.app.elbuensabor.Dto.RubroGeneralDto;
 import com.app.elbuensabor.Entidad.ArticuloManufacturado;
-import com.app.elbuensabor.Entidad.ArticuloManufacturadoDetalle;
 import com.app.elbuensabor.Entidad.RubroGeneral;
-import com.app.elbuensabor.Repositorio.ArticuloManufacturadoRepositorio;
 import com.app.elbuensabor.Repositorio.RubroGeneralRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,18 +16,23 @@ public class RubroGeneralServicio {
     @Autowired
     RubroGeneralRepositorio rubroGeneralRepositorio;
 
-    @Autowired
-    ArticuloManufacturadoRepositorio articuloManufacturadoRepositorio;
-
     public List<RubroGeneralDto> listarRubrosGenerales(){
-        List<RubroGeneralDto> rubrosDTO = new ArrayList<>();
-        List<ArticuloManufacturado> articulos = articuloManufacturadoRepositorio.listarArticuloManufacturados();
+        List<RubroGeneral> rubros = rubroGeneralRepositorio.findAll();
+        List<RubroGeneralDto> rubrosDto = new ArrayList<>();
 
-        for (ArticuloManufacturado aux : articulos) {
+        for (RubroGeneral aux : rubros) {
             List<String> articulosManufacturados = new ArrayList<>();
-            articulosManufacturados.add(aux.getDenominacionArticuloManu());
+
+            for (ArticuloManufacturado art : aux.getArticuloManufacturados()) {
+                articulosManufacturados.add(art.getDenominacionArticuloManu());
+            }
+            RubroGeneralDto rubroDto = RubroGeneralDto.builder().idRubroGeneral(aux.getIdRubroGeneral())
+                    .denominacionRubroGeneral(aux.getDenominacionRubroGeneral())
+                    .articulosManufacturados(articulosManufacturados)
+                    .build();
+            rubrosDto.add(rubroDto);
         }
-        return rubrosDTO;
+        return rubrosDto;
     }
 
     //public List<RubroGeneral> listarRubroGenerales() {

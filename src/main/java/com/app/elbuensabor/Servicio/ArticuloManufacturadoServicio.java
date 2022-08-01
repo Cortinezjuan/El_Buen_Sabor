@@ -56,7 +56,6 @@ public class ArticuloManufacturadoServicio {
                         .build();
                 articulosDto.add(auxDto);
             }
-
         }
         return articulosDto;
     }
