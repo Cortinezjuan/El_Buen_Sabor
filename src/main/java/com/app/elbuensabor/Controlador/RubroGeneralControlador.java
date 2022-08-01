@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.RubroGeneralDto;
 import com.app.elbuensabor.Entidad.RubroGeneral;
 import com.app.elbuensabor.Servicio.RubroGeneralServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,15 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/rubroGeneral")
 public class RubroGeneralControlador {
 
     @Autowired
     RubroGeneralServicio rubroGeneralServicio;
 
-    @GetMapping("/listarRubroGenerales")
-    public List<RubroGeneral> listarRubroGenerales() {
-        return rubroGeneralServicio.listarRubroGenerales();
+    @GetMapping("/listarRubrosGenerales")
+    public List<RubroGeneralDto> listarRubrosGenerales() {
+        return rubroGeneralServicio.listarRubrosGenerales();
     }
 
     @GetMapping("/listarRubroGeneralXId/{id}")

@@ -22,5 +22,4 @@ public class ArticuloManufacturadoDto {
     private double precioTotal;
     private int stock;
     private List<String> insumos;
-
 }
