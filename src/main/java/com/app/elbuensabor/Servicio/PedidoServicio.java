@@ -72,6 +72,7 @@ public class PedidoServicio {
                 .totalPedido(pedidoDto.getTotalPedido())
                 .domicilio(domicilio)
                 .usuario(usuario)
+
                 .build();
         pedidoRepositorio.save(pedido);
         return pedidoDto;
@@ -124,6 +125,7 @@ public class PedidoServicio {
     public void pagarPedido(int id){
         System.out.println("id pedido" + id);
        Optional<Pedido> pedido = pedidoRepositorio.findById(id);
+       pedido.get().setNumeroPedido(id);
        pedido.get().setEstadoPedido(6);
        pedidoRepositorio.save(pedido.get());
     }

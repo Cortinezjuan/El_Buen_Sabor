@@ -68,8 +68,8 @@ public class PedidoControlador {
     }
 
     @GetMapping("/pagarPedido/{id}")
-    public void pagarPedido(@PathVariable("id") int id) {
-        pedidoServicio.pagarPedido(id);
+    public void pagarPedido(@PathVariable("id") String id) {
+        pedidoServicio.pagarPedido(Integer.parseInt(id));
     }
 
     @GetMapping("/listarPedidosPorUsuario")
