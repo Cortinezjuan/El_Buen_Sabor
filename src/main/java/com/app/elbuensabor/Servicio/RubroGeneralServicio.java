@@ -32,9 +32,9 @@ public class RubroGeneralServicio {
         return rubrosDTO;
     }
 
-    public List<RubroGeneral> listarRubroGenerales() {
-        return rubroGeneralRepositorio.listarRubroGenerales();
-    }
+    //public List<RubroGeneral> listarRubroGenerales() {
+    //    return rubroGeneralRepositorio.listarRubroGenerales();
+    //}
 
     public Optional<RubroGeneral> listarRubroGeneralPorId(int id) {
         return rubroGeneralRepositorio.findById(id);
