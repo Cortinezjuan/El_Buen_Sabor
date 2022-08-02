@@ -22,15 +22,16 @@ public class RubroGeneralServicio {
 
         for (RubroGeneral aux : rubros) {
             List<String> articulosManufacturados = new ArrayList<>();
-
-            for (ArticuloManufacturado art : aux.getArticuloManufacturados()) {
-                articulosManufacturados.add(art.getDenominacionArticuloManu());
+            if(!(aux.isBajaRubroGeneral())){
+                for (ArticuloManufacturado art : aux.getArticuloManufacturados()) {
+                    articulosManufacturados.add(art.getDenominacionArticuloManu());
+                }
+                RubroGeneralDto rubroDto = RubroGeneralDto.builder().idRubroGeneral(aux.getIdRubroGeneral())
+                        .denominacionRubroGeneral(aux.getDenominacionRubroGeneral())
+                        .articulosManufacturados(articulosManufacturados)
+                        .build();
+                rubrosDto.add(rubroDto);
             }
-            RubroGeneralDto rubroDto = RubroGeneralDto.builder().idRubroGeneral(aux.getIdRubroGeneral())
-                    .denominacionRubroGeneral(aux.getDenominacionRubroGeneral())
-                    .articulosManufacturados(articulosManufacturados)
-                    .build();
-            rubrosDto.add(rubroDto);
         }
         return rubrosDto;
     }
