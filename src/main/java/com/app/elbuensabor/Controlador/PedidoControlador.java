@@ -29,7 +29,7 @@ public class PedidoControlador {
     }
 
     @GetMapping("/listarPedidoXId/{id}")
-    public Optional<Pedido> listarPedidoPorId(@PathVariable("id") int id) {
+    public PedidoRespDto listarPedidoPorId(@PathVariable("id") int id) {
         return pedidoServicio.listarPedidoPorId(id);
     }
 
