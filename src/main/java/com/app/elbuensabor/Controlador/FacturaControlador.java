@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Entidad.Factura;
 import com.app.elbuensabor.Servicio.EnvioMail;
 import com.app.elbuensabor.Servicio.FacturaServicio;
@@ -66,5 +67,10 @@ public class FacturaControlador {
     @PutMapping("/modificarFactura")
     public Factura modificarFactura(@RequestBody Factura factura) {
         return facturaServicio.modificarFactura(factura);
+    }
+
+    @GetMapping("/facturasPorIdPedido")
+    public Factura getFacturaByIdPedido(@RequestParam(name="idPedido",required = false)int idPedido ){
+        return facturaServicio.getFacturaByIdPedido(idPedido);
     }
 }

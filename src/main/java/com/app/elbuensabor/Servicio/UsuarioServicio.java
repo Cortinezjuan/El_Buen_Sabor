@@ -105,4 +105,19 @@ public class UsuarioServicio {
         }
         return usuarioDtos;
     }
+
+    public UsuarioDto getUsuarioBynombreUsuario(String nombreUsuario){
+        Usuario usuario = usuarioRepositorio.findByUsuario(nombreUsuario);
+        UsuarioDto usuarioDto = UsuarioDto.builder()
+                .idUsuario(usuario.getIdUsuario())
+                .nombres(usuario.getNombres())
+                .apellidos(usuario.getApellidos())
+                .clave(usuario.getClave())
+                .email(usuario.getEmail())
+                .usuario(usuario.getUsuario())
+                .telefono(usuario.getTelefono())
+                .telefono(usuario.getTelefono())
+                .build();
+        return usuarioDto;
+    }
 }

@@ -1,13 +1,18 @@
 package com.app.elbuensabor.Servicio;
 
+import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Entidad.Factura;
+import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Repositorio.FacturaRepositorio;
+import com.app.elbuensabor.Repositorio.PedidoRepositorio;
+import com.app.elbuensabor.Repositorio.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +21,8 @@ import java.util.Optional;
 public class FacturaServicio {
     @Autowired
     FacturaRepositorio facturaRepositorio;
+    @Autowired
+    PedidoRepositorio pedidoRepositorio;
 
     public List<Factura> listarFacturas(){
         return facturaRepositorio.listarFacturas();
@@ -47,4 +54,9 @@ public class FacturaServicio {
         return facturaRepositorio.gananciaPorPeriodo(fecha1, fecha2);
     }
 
+    public Factura getFacturaByIdPedido(int idPedido){
+        Optional<Pedido> pedido = pedidoRepositorio.findById(idPedido);
+        Factura factura = pedido.get().getFactura();
+        return factura;
+    }
 }
