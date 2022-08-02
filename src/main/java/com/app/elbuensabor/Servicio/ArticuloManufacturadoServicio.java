@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Servicio;
 
+import com.app.elbuensabor.Dto.ArticuloMFRubroDto;
 import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
 import com.app.elbuensabor.Dto.CarritoDto;
 import com.app.elbuensabor.Entidad.ArticuloInsumo;
@@ -55,6 +56,42 @@ public class ArticuloManufacturadoServicio {
                         .insumos(insumos)
                         .build();
                 articulosDto.add(auxDto);
+            }
+        }
+        return articulosDto;
+    }
+
+
+    public List<ArticuloMFRubroDto> listarArticuloManufacturadosRubro(){
+        List<ArticuloMFRubroDto> articulosDto = new ArrayList<>();
+        List <ArticuloManufacturado> articulos = articuloManufacturadoRepositorio.listarArticuloManufacturados();
+
+        for(ArticuloManufacturado aux: articulos){
+            List<String> insumos = new ArrayList<>();
+            int stockMinimo = 1000;
+            for(ArticuloManufacturadoDetalle auxDetalle: aux.getArticuloManufacturadoDetalles()){
+                int stockActual = articuloInsumoRepositorio.findStockByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
+                int cantidadAPreparar = stockActual*1000/auxDetalle.getCantidadArticuloManuDetalle();
+                if(cantidadAPreparar<stockMinimo){
+                    stockMinimo = cantidadAPreparar;
+                }
+                insumos.add(auxDetalle.getArticuloInsumo().getDenominacionArticuloInsumo());
+            }
+
+            if(stockMinimo > 0){
+                Double precioArticulo = precioArticuloManufacturadoRepositorio.findByIdArticuloManufacturado(aux.getIdArticuloManufacturado());
+
+                ArticuloMFRubroDto auxDto2 = ArticuloMFRubroDto.builder()
+                        .imagenArticuloManu(aux.getImagenArticuloManu())
+                        .idArticuloManufacturado(aux.getIdArticuloManufacturado())
+                        .denominacionArticuloManu(aux.getDenominacionArticuloManu())
+                        .tiempoEstimadoCocina(aux.getTiempoEstimadoCocina())
+                        .precioTotal(precioArticulo)
+                        .stock(stockMinimo)
+                        .insumos(insumos)
+                        .idRubroGeneral(aux.getRubroGeneral().getIdRubroGeneral())
+                        .build();
+                articulosDto.add(auxDto2);
             }
         }
         return articulosDto;

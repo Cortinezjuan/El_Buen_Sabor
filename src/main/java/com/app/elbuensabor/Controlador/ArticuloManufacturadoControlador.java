@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.ArticuloMFRubroDto;
 import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
 import com.app.elbuensabor.Dto.CarritoDto;
 import com.app.elbuensabor.Entidad.ArticuloManufacturado;
@@ -21,6 +22,11 @@ public class ArticuloManufacturadoControlador {
     @GetMapping("/listarArticuloManufacturados")
     public List<ArticuloManufacturadoDto> listarArticuloManufacturados() {
         return articuloManufacturadoServicio.listarArticuloManufacturados();
+    }
+
+    @GetMapping("/listarArticuloManufacturadosRubros")
+    public List<ArticuloMFRubroDto> listarArticuloManufacturadosRubro() {
+        return articuloManufacturadoServicio.listarArticuloManufacturadosRubro();
     }
 
     @GetMapping("/listarArticuloManufacturadoXId/{id}")
