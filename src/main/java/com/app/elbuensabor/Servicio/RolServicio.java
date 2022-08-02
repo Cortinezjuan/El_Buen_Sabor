@@ -29,7 +29,6 @@ public class RolServicio {
         Optional<Rol> rol = rolRepositorio.findById(id);
         rol.get().setBajaRol(true);
         rolRepositorio.save(rol.get());
-
     }
 
     public Rol modificarRol(Rol rol){
