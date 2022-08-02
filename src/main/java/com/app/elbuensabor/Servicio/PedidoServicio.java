@@ -4,7 +4,6 @@ import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
-import com.app.elbuensabor.Entidad.DetallePedido;
 import com.app.elbuensabor.Entidad.Domicilio;
 import com.app.elbuensabor.Entidad.Pedido;
 import com.app.elbuensabor.Entidad.Usuario;
@@ -12,11 +11,8 @@ import com.app.elbuensabor.Repositorio.DomicilioRepositorio;
 import com.app.elbuensabor.Repositorio.PedidoRepositorio;
 import com.app.elbuensabor.Repositorio.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.objenesis.ObjenesisSerializer;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -53,8 +49,23 @@ public class PedidoServicio {
         return pedidosDto;
     }
 
-    public Optional<Pedido> listarPedidoPorId(int id) {
-        return pedidoRepositorio.findById(id);
+    public PedidoRespDto listarPedidoPorId(int id) {
+        Optional<Pedido> pedido = pedidoRepositorio.findById(id);
+        String estado ="";
+        if(pedido.get().getEstadoPedido()==1)estado = "En Preparación";
+        if(pedido.get().getEstadoPedido()==6)estado = "Pagado";
+        String horaFin = pedido.get().getHoraEstimadaFinPedido().getHours()+":"+pedido.get().getHoraEstimadaFinPedido().getMinutes();
+        String fechaInicio = String.valueOf(pedido.get().getFechaPedido().getTime());
+        PedidoRespDto pedidoDto = PedidoRespDto.builder()
+                .idPedido(pedido.get().getIdPedido())
+                .fechaPedido(pedido.get().getFechaPedido().toString())
+                .estadoPedido(estado)
+                .numeroPedido(pedido.get().getIdPedido())
+                .horaEstimadaFinPedido(horaFin)
+                .nombreUsuario(pedido.get().getUsuario().getUsuario())
+                .totalPedido(pedido.get().getTotalPedido())
+                .build();
+        return pedidoDto;
     }
 
     public PedidoDto guardarPedido(PedidoDto pedidoDto) {
@@ -72,7 +83,7 @@ public class PedidoServicio {
                 .totalPedido(pedidoDto.getTotalPedido())
                 .domicilio(domicilio)
                 .usuario(usuario)
-
+                .estadoPedido(pedidoDto.getEstadoPedido())
                 .build();
         pedidoRepositorio.save(pedido);
         return pedidoDto;
