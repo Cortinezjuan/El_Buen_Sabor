@@ -1,9 +1,13 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.ArticuloInsumoDto;
 import com.app.elbuensabor.Dto.BebidaDto;
 import com.app.elbuensabor.Entidad.ArticuloInsumo;
 import com.app.elbuensabor.Servicio.ArticuloInsumoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +37,14 @@ public class ArticuloInsumoControlador {
     }
 
     @PostMapping("/crearArticuloInsumo")
-    public ArticuloInsumo crearArticuloInsumo(@RequestBody ArticuloInsumo articuloInsumo) {
-        return articuloInsumoServicio.guardarArticuloInsumo(articuloInsumo);
+    @Transactional
+    public ResponseEntity<Object> post(@RequestBody ArticuloInsumoDto dto) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(articuloInsumoServicio.guardarArticuloInsumo(dto));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"message\": \"Error. Please try again later.\"}");
+        }
     }
 
     @DeleteMapping("/borrarArticuloInsumo/{id}")
@@ -43,7 +53,13 @@ public class ArticuloInsumoControlador {
     }
 
     @PutMapping("/modificarArticuloInsumo")
-    public ArticuloInsumo modificarArticuloInsumo(@RequestBody ArticuloInsumo articuloInsumo) {
-        return articuloInsumoServicio.modificarArticuloInsumo(articuloInsumo);
+    @Transactional
+    public ResponseEntity<Object> put(@PathVariable int id, @RequestBody ArticuloInsumoDto dto ) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(articuloInsumoServicio.modificarArticuloInsumo(dto, id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"message\": \"Error. Please try again later.\"}");
+        }
     }
 }
