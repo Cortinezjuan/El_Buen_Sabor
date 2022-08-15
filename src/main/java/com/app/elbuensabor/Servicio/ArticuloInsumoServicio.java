@@ -60,7 +60,14 @@ public class ArticuloInsumoServicio {
         try {
             List<PrecioArticuloInsumo> preciosArticulosInsumo = new ArrayList<>();
             for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
-                preciosArticulosInsumo.add(precio);
+                PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
+
+                precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
+                precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
+                precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());
+                precioNuevo.setCantidadPrecioArtInsumo(precio.getCantidadPrecioArtInsumo());
+
+                preciosArticulosInsumo.add(precioNuevo);
             }
             articuloInsumo.setPreciosArticulosInsumo(preciosArticulosInsumo);
         } catch (Exception e) {
