@@ -78,7 +78,7 @@ public class ArticuloInsumoServicio {
         articuloInsumoDto.setIdArticuloInsumo(articuloInsumo.getIdArticuloInsumo());
         return articuloInsumoDto;
     }
-
+    @Transactional
     public ArticuloInsumoDto modificarArticuloInsumo(ArticuloInsumoDto articuloInsumoDto, int idArticuloInsumo) {
         Optional<ArticuloInsumo> optional = articuloInsumoRepositorio.findById(idArticuloInsumo);
         ArticuloInsumo articuloInsumo = new ArticuloInsumo();
@@ -97,7 +97,14 @@ public class ArticuloInsumoServicio {
         try {
             List<PrecioArticuloInsumo> preciosArticulosInsumo = new ArrayList<>();
             for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
-                preciosArticulosInsumo.add(precio);
+                PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
+
+                precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
+                precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
+                precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());
+                precioNuevo.setCantidadPrecioArtInsumo(precio.getCantidadPrecioArtInsumo());
+
+                preciosArticulosInsumo.add(precioNuevo);
             }
             articuloInsumo.setPreciosArticulosInsumo(preciosArticulosInsumo);
         } catch (Exception e) {
