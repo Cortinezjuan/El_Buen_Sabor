@@ -20,10 +20,6 @@ public class ArticuloInsumoServicio {
     @Autowired
     ArticuloInsumoRepositorio articuloInsumoRepositorio;
 
-    public List<ArticuloInsumoDto> listarArticulosInsumo() {
-        return articuloInsumoRepositorio.listarArticulosInsumo();
-    }
-
     public List<BebidaDto> listarBebidas() {
         List<ArticuloInsumo> articulos = articuloInsumoRepositorio.listarBebidas();
         List<BebidaDto> bebidas = new ArrayList<>();
@@ -37,8 +33,28 @@ public class ArticuloInsumoServicio {
                     .build();
             bebidas.add(bebida);
         }
-
         return bebidas;
+    }
+
+    public List<ArticuloInsumoDto> listarArticulosInsumo() {
+        List<ArticuloInsumoDto> result = new ArrayList<>();
+
+        for ( ArticuloInsumo articulo2 : articuloInsumoRepositorio.findAll() ) {
+            ArticuloInsumoDto articulo = new ArticuloInsumoDto();
+
+            articulo.setIdArticuloInsumo(articulo2.getIdArticuloInsumo());
+            articulo.setDenominacionArticuloInsumo(articulo2.getDenominacionArticuloInsumo());
+            articulo.setImagenArticuloInsumo(articulo2.getImagenArticuloInsumo());
+            articulo.setStockActual(articulo2.getStockActual());
+            articulo.setStockMinimo(articulo2.getStockMinimo());
+            articulo.setUnidadMedidaArticuloInsumo(articulo2.getUnidadMedidaArticuloInsumo());
+            articulo.setEsArticuloInsumo(articulo2.isEsArticuloInsumo());
+            articulo.setPreciosArticulosInsumo(articulo2.getPreciosArticulosInsumo());
+            articulo.setRubroArticulo(articulo2.getRubroArticulo());
+
+            result.add(articulo);
+        }
+        return result;
     }
 
     public Optional<ArticuloInsumo> listarArticuloInsumoPorId(int id) {
@@ -129,15 +145,12 @@ public class ArticuloInsumoServicio {
         articuloInsumoRepositorio.save(articuloInsumo);
         articuloInsumoDto.setIdArticuloInsumo(articuloInsumo.getIdArticuloInsumo());
 
-    }catch(
-    Exception e)
-
-    {
+    }catch(Exception e){
         System.out.println("Bad Request");
         articuloInsumoDto.setIdArticuloInsumo(0);
     }
-return articuloInsumoDto;
-}
+        return articuloInsumoDto;
+    }
     public void borrarArticuloInsumo(int id){
         Optional<ArticuloInsumo> articuloInsumo = articuloInsumoRepositorio.findById(id);
         articuloInsumo.get().setBajaArticuloInsumo(true);
