@@ -21,6 +21,6 @@ public class ArticuloInsumoDto {
     private boolean esArticuloInsumo;
     private boolean bajaArticuloInsumo;
     //relaciones
-    private List<Double> preciosArticulosInsumo;
-    private String rubroArticulo;
+    private List<PrecioArticuloInsumo> preciosArticulosInsumo;
+    private RubroArticulo rubroArticulo;
 }
