@@ -20,7 +20,7 @@ public class ArticuloInsumoServicio {
     @Autowired
     ArticuloInsumoRepositorio articuloInsumoRepositorio;
 
-    public List<ArticuloInsumo> listarArticulosInsumo() {
+    public List<ArticuloInsumoDto> listarArticulosInsumo() {
         return articuloInsumoRepositorio.listarArticulosInsumo();
     }
 
@@ -85,6 +85,7 @@ public class ArticuloInsumoServicio {
         articuloInsumoDto.setIdArticuloInsumo(articuloInsumo.getIdArticuloInsumo());
         return articuloInsumoDto;
     }
+
     @Transactional
     public ArticuloInsumoDto modificarArticuloInsumo(ArticuloInsumoDto articuloInsumoDto, int idArticuloInsumo) {
         Optional<ArticuloInsumo> optional = articuloInsumoRepositorio.findById(idArticuloInsumo);
@@ -132,7 +133,6 @@ public class ArticuloInsumoServicio {
     Exception e)
 
     {
-
         System.out.println("Bad Request");
         articuloInsumoDto.setIdArticuloInsumo(0);
     }

@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Repositorio;
 
+import com.app.elbuensabor.Dto.ArticuloInsumoDto;
 import com.app.elbuensabor.Entidad.ArticuloInsumo;
 import com.app.elbuensabor.Entidad.Factura;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ArticuloInsumoRepositorio extends JpaRepository <ArticuloInsumo, Integer> {
     @Query(value="SELECT * FROM articulo_insumo WHERE baja_articulo_insumo = false", nativeQuery = true)
-    List<ArticuloInsumo> listarArticulosInsumo();
+    List<ArticuloInsumoDto> listarArticulosInsumo();
 
     @Query(value="SELECT stock_actual " +
             "FROM articulo_insumo " +
@@ -20,5 +21,4 @@ public interface ArticuloInsumoRepositorio extends JpaRepository <ArticuloInsumo
 
     @Query(value="SELECT * FROM articulo_insumo WHERE baja_articulo_insumo = false AND es_articulo_insumo= false", nativeQuery = true)
     List<ArticuloInsumo> listarBebidas();
-
 }

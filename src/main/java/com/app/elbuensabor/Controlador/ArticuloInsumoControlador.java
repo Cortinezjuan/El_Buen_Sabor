@@ -21,9 +21,14 @@ public class ArticuloInsumoControlador {
     ArticuloInsumoServicio articuloInsumoServicio;
 
     @GetMapping("/listarArticulosInsumo")
-    public List<ArticuloInsumo> listarFacturas() {
+    public List<ArticuloInsumoDto> listarArticulosInsumo(){
         return articuloInsumoServicio.listarArticulosInsumo();
     }
+
+    //@GetMapping("/listarArticulosInsumo")
+    //public List<ArticuloInsumo> listarFacturas() {
+    //    return articuloInsumoServicio.listarArticulosInsumo();
+    //}
 
     //lista solo las bebidas
     @GetMapping("/listarBebidas")
