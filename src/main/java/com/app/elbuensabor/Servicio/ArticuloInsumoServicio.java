@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class ArticuloInsumoServicio {
@@ -49,9 +50,39 @@ public class ArticuloInsumoServicio {
             articulo.setStockMinimo(articulo2.getStockMinimo());
             articulo.setUnidadMedidaArticuloInsumo(articulo2.getUnidadMedidaArticuloInsumo());
             articulo.setEsArticuloInsumo(articulo2.isEsArticuloInsumo());
-            articulo.setPreciosArticulosInsumo(articulo2.getPreciosArticulosInsumo());
-            articulo.setRubroArticulo(articulo2.getRubroArticulo());
 
+            try {
+                List<PrecioArticuloInsumo> precio = new ArrayList<>();
+
+                for (PrecioArticuloInsumo precioArt : articulo2.getPreciosArticulosInsumo() ) {
+                    PrecioArticuloInsumo precioArticuloInsumo = new PrecioArticuloInsumo();
+                    precioArticuloInsumo.setIdPrecio(precioArt.getIdPrecio());
+                    precioArticuloInsumo.setPrecioCostoArticuloInsumo(precioArt.getPrecioCostoArticuloInsumo());
+                    precioArticuloInsumo.setPrecioVentaArticuloInsumo(precioArt.getPrecioVentaArticuloInsumo());
+                    precioArticuloInsumo.setFechaPrecioArtInsumo(precioArt.getFechaPrecioArtInsumo());
+                    precioArticuloInsumo.setCantidadPrecioArtInsumo(precioArt.getCantidadPrecioArtInsumo());
+
+                    precio.add(precioArticuloInsumo);
+                }
+                articulo.setPreciosArticulosInsumo(precio);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
+            //Seteo el RubroArticulo del Insumo
+            try {
+                RubroArticulo rubro = new RubroArticulo();
+
+                rubro.setIdRubroArticulo(articulo2.getIdArticuloInsumo());
+                rubro.setDenominacionRubroArticulo(articulo2.getRubroArticulo().getDenominacionRubroArticulo());
+                //rubro.setRubroArticuloPadre(articulo2.getRubroArticulo());
+
+                articulo.setRubroArticulo(rubro);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
             result.add(articulo);
         }
         return result;
@@ -156,5 +187,4 @@ public class ArticuloInsumoServicio {
         articuloInsumo.get().setBajaArticuloInsumo(true);
         articuloInsumoRepositorio.save(articuloInsumo.get());
     }
-
 }

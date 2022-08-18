@@ -25,17 +25,6 @@ public class ArticuloInsumoControlador {
         return articuloInsumoServicio.listarArticulosInsumo();
     }
 
-    //@GetMapping("/listarArticulosInsumo")
-    //public List<ArticuloInsumo> listarFacturas() {
-    //    return articuloInsumoServicio.listarArticulosInsumo();
-    //}
-
-    //lista solo las bebidas
-    @GetMapping("/listarBebidas")
-    public List<BebidaDto> listarBebidas(){
-        return articuloInsumoServicio.listarBebidas();
-    }
-
     @GetMapping("/listarArticuloInsumoXId/{id}")
     public Optional<ArticuloInsumo> listarArticuloInsumoPorId(@PathVariable("id") int id) {
         return articuloInsumoServicio.listarArticuloInsumoPorId(id);
@@ -66,5 +55,11 @@ public class ArticuloInsumoControlador {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("{\"message\": \"Error. Please try again later.\"}");
         }
+    }
+
+    //Lista solo las bebidas
+    @GetMapping("/listarBebidas")
+    public List<BebidaDto> listarBebidas(){
+        return articuloInsumoServicio.listarBebidas();
     }
 }
