@@ -40,7 +40,7 @@ public class ArticuloInsumoServicio {
     public List<ArticuloInsumoDto> listarArticulosInsumo() {
         List<ArticuloInsumoDto> result = new ArrayList<>();
 
-        for ( ArticuloInsumo articulo2 : articuloInsumoRepositorio.findAll() ) {
+        for ( ArticuloInsumo articulo2 : articuloInsumoRepositorio.listarAritculosInsumo() ) {
             ArticuloInsumoDto articulo = new ArticuloInsumoDto();
 
             articulo.setIdArticuloInsumo(articulo2.getIdArticuloInsumo());

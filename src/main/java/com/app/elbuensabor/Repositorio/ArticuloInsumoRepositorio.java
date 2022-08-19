@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ArticuloInsumoRepositorio extends JpaRepository <ArticuloInsumo, Integer> {
     @Query(value="SELECT * FROM articulo_insumo WHERE baja_articulo_insumo = false", nativeQuery = true)
-    List<ArticuloInsumoDto> listarArticulosInsumo();
+    List<ArticuloInsumo> listarAritculosInsumo();
 
     @Query(value="SELECT stock_actual " +
             "FROM articulo_insumo " +
