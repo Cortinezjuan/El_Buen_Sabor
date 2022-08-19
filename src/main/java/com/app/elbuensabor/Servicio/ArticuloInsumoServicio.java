@@ -72,8 +72,57 @@ public class ArticuloInsumoServicio {
         return result;
     }
 
-    public Optional<ArticuloInsumo> listarArticuloInsumoPorId(int id) {
-        return articuloInsumoRepositorio.findById(id);
+    public ArticuloInsumoDto articuloInsumoPorId(int id) {
+        Optional<ArticuloInsumo> insumoOptional = articuloInsumoRepositorio.findById(id);
+        ArticuloInsumoDto insumo = new ArticuloInsumoDto();
+
+        try {
+        ArticuloInsumo insumo2 = insumoOptional.get();
+        insumo.setIdArticuloInsumo(insumo2.getIdArticuloInsumo());
+        insumo.setDenominacionArticuloInsumo(insumo2.getDenominacionArticuloInsumo());
+        insumo.setImagenArticuloInsumo(insumo2.getImagenArticuloInsumo());
+        insumo.setStockActual(insumo2.getStockActual());
+        insumo.setStockMinimo(insumo2.getStockMinimo());
+        insumo.setUnidadMedidaArticuloInsumo(insumo2.getUnidadMedidaArticuloInsumo());
+        insumo.setEsArticuloInsumo(insumo2.isEsArticuloInsumo());
+
+            try {
+                List<PrecioArticuloInsumo> precio = new ArrayList<>();
+
+                for (PrecioArticuloInsumo precioArt : insumo2.getPreciosArticulosInsumo()) {
+                    PrecioArticuloInsumo preciosInsumo = new PrecioArticuloInsumo();
+
+                    preciosInsumo.setIdPrecio(precioArt.getIdPrecio());
+                    preciosInsumo.setPrecioCostoArticuloInsumo(precioArt.getPrecioCostoArticuloInsumo());
+                    preciosInsumo.setPrecioVentaArticuloInsumo(precioArt.getPrecioVentaArticuloInsumo());
+                    preciosInsumo.setFechaPrecioArtInsumo(precioArt.getFechaPrecioArtInsumo());
+                    preciosInsumo.setCantidadPrecioArtInsumo(precioArt.getCantidadPrecioArtInsumo());
+
+                    precio.add(preciosInsumo);
+                }
+                insumo.setPreciosArticulosInsumo(precio);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
+            try {
+                RubroArticulo rubro = new RubroArticulo();
+
+                rubro.setIdRubroArticulo(insumo2.getRubroArticulo().getIdRubroArticulo());
+                rubro.setDenominacionRubroArticulo(insumo2.getRubroArticulo().getDenominacionRubroArticulo());
+                //rubro.setRubroArticuloPadre(articulo2.getRubroArticulo());
+
+                insumo.setRubroArticulo(rubro);
+
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return insumo;
     }
 
     @Transactional

@@ -25,9 +25,9 @@ public class ArticuloInsumoControlador {
         return articuloInsumoServicio.listarArticulosInsumo();
     }
 
-    @GetMapping("/listarArticuloInsumoXId/{id}")
-    public Optional<ArticuloInsumo> listarArticuloInsumoPorId(@PathVariable("id") int id) {
-        return articuloInsumoServicio.listarArticuloInsumoPorId(id);
+    @GetMapping("/articuloInsumoXId/{id}")
+    public ArticuloInsumoDto articuloInsumoPorId(@PathVariable("id") int id) {
+        return articuloInsumoServicio.articuloInsumoPorId(id);
     }
 
     @PostMapping("/crearArticuloInsumo")
