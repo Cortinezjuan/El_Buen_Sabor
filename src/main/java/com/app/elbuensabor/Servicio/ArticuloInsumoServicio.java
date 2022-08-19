@@ -21,22 +21,6 @@ public class ArticuloInsumoServicio {
     @Autowired
     ArticuloInsumoRepositorio articuloInsumoRepositorio;
 
-    public List<BebidaDto> listarBebidas() {
-        List<ArticuloInsumo> articulos = articuloInsumoRepositorio.listarBebidas();
-        List<BebidaDto> bebidas = new ArrayList<>();
-        for (ArticuloInsumo aux : articulos) {
-            BebidaDto bebida = BebidaDto.builder()
-                    .idBebida(aux.getIdArticuloInsumo())
-                    .nombreBebida(aux.getDenominacionArticuloInsumo())
-                    .imagenBebida(aux.getImagenArticuloInsumo())
-                    .stock(aux.getStockActual())
-                    .precioTotal(aux.getPreciosArticulosInsumo().get(0).getPrecioVentaArticuloInsumo())
-                    .build();
-            bebidas.add(bebida);
-        }
-        return bebidas;
-    }
-
     public List<ArticuloInsumoDto> listarArticulosInsumo() {
         List<ArticuloInsumoDto> result = new ArrayList<>();
 
@@ -182,9 +166,26 @@ public class ArticuloInsumoServicio {
     }
         return articuloInsumoDto;
     }
+
     public void borrarArticuloInsumo(int id){
         Optional<ArticuloInsumo> articuloInsumo = articuloInsumoRepositorio.findById(id);
         articuloInsumo.get().setBajaArticuloInsumo(true);
         articuloInsumoRepositorio.save(articuloInsumo.get());
+    }
+
+    public List<BebidaDto> listarBebidas() {
+        List<ArticuloInsumo> articulos = articuloInsumoRepositorio.listarBebidas();
+        List<BebidaDto> bebidas = new ArrayList<>();
+        for (ArticuloInsumo aux : articulos) {
+            BebidaDto bebida = BebidaDto.builder()
+                    .idBebida(aux.getIdArticuloInsumo())
+                    .nombreBebida(aux.getDenominacionArticuloInsumo())
+                    .imagenBebida(aux.getImagenArticuloInsumo())
+                    .stock(aux.getStockActual())
+                    .precioTotal(aux.getPreciosArticulosInsumo().get(0).getPrecioVentaArticuloInsumo())
+                    .build();
+            bebidas.add(bebida);
+        }
+        return bebidas;
     }
 }
