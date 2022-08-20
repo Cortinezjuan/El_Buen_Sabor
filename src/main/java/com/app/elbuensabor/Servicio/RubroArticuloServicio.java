@@ -20,23 +20,23 @@ public class RubroArticuloServicio {
     }
 
     //metodo recursivo de rubros
-    public List<RubroArticulo> listarSubRubrosPorId(int id) {
+  /*  public List<RubroArticulo> listarSubRubrosPorId(int id) {
 
         RubroArticulo rubroArecorrer = rubroArticuloRepositorio.buscarPorId(id);
         List<RubroArticulo> listaRecursiva = new ArrayList<>();
         listaRecursion(rubroArecorrer, listaRecursiva);
         return listaRecursiva;
 
-    }
+    }*/
 
-    public void listaRecursion(RubroArticulo rubro, List<RubroArticulo> listaRubros) {
+   /* public void listaRecursion(RubroArticulo rubro, List<RubroArticulo> listaRubros) {
         listaRubros.add(rubro);
         if (rubro.getRubrosArticulosHijos() != null) {
             for (RubroArticulo rubroHijo : rubro.getRubrosArticulosHijos()) {
                 listaRecursion(rubroHijo, listaRubros);
             }
         }
-    }
+    }*/
 
     public Optional<RubroArticulo> listarRubroArticuloPorId(int id) {
         return rubroArticuloRepositorio.findById(id);

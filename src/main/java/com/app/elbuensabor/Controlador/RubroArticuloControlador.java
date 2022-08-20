@@ -21,10 +21,10 @@ public class RubroArticuloControlador {
         return rubroArticuloServicio.listarRubrosArticulos();
     }
 
-    @GetMapping("/listarSubRubrosXId/{id}")
+ /*   @GetMapping("/listarSubRubrosXId/{id}")
     public List<RubroArticulo> listarSubRubrosPorId(@PathVariable("id") int id) {
         return rubroArticuloServicio.listarSubRubrosPorId(id);
-    }
+    }*/
 
     @GetMapping("/listarRubroArticuloXId/{id}")
     public Optional<RubroArticulo> listarRubroArticuloPorId(@PathVariable("id") int id) {

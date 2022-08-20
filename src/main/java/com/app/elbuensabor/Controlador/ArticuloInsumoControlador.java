@@ -46,7 +46,7 @@ public class ArticuloInsumoControlador {
         articuloInsumoServicio.borrarArticuloInsumo(id);
     }
 
-    @PutMapping("/modificarArticuloInsumo")
+    @PutMapping("/modificarArticuloInsumo/{id}")
     @Transactional
     public ResponseEntity<Object> put(@PathVariable int id, @RequestBody ArticuloInsumoDto dto ) {
         try {
