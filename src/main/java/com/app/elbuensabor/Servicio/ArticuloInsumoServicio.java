@@ -157,6 +157,7 @@ public class ArticuloInsumoServicio {
         try {
             RubroArticulo rubroArticulo = new RubroArticulo();
             rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+         //   rubroArticulo.setIdRubroArticulo(1);
             articuloInsumo.setRubroArticulo(rubroArticulo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -201,7 +202,8 @@ public class ArticuloInsumoServicio {
 
         try {
             RubroArticulo rubroArticulo = new RubroArticulo();
-            rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+             rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+           // rubroArticulo.setIdRubroArticulo(1);
             articuloInsumo.setRubroArticulo(rubroArticulo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
