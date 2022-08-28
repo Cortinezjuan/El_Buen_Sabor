@@ -148,7 +148,6 @@ public class UsuarioServicio {
         Optional<Usuario> usuario = usuarioRepositorio.findById(id);
         usuario.get().setBajaUsuario(true);
         usuarioRepositorio.save(usuario.get());
-
     }
 
     public Usuario modificarUsuario(Usuario Usuario){
@@ -169,7 +168,6 @@ public class UsuarioServicio {
                      .build();
              return loginDto;
          }else
-
              return null;
     }
 
