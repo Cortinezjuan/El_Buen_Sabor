@@ -22,7 +22,6 @@ import java.util.Optional;
 
 @Service
 public class UsuarioServicio {
-    
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
     @Autowired
@@ -76,8 +75,53 @@ public class UsuarioServicio {
         return result;
     }
 
-    public Optional<Usuario> listarUsuarioPorId(int id){
-        return usuarioRepositorio.findById(id);
+    public UsuarioDto listarUsuarioPorId(int id){
+        Optional<Usuario> usuarioOptional = usuarioRepositorio.findById(id);
+        UsuarioDto usuario = new UsuarioDto();
+
+        try{
+            Usuario usuario2 = usuarioOptional.get();
+
+            usuario.setIdUsuario(usuario2.getIdUsuario());
+            usuario.setNombres(usuario2.getNombres());
+            usuario.setApellidos(usuario2.getApellidos());
+            usuario.setEmail(usuario2.getEmail());
+            usuario.setUsuario(usuario2.getUsuario());
+            usuario.setTelefono(usuario2.getTelefono());
+            usuario.setClave(usuario2.getClave());
+
+            try{
+                Rol rol = new Rol();
+                rol.setIdRol(usuario2.getRol().getIdRol());
+                rol.setDescripcion(usuario2.getRol().getDescripcion());
+                usuario.setRol(rol);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
+            try {
+                List<Domicilio> domicilios = new ArrayList<>();
+
+                for (Domicilio dom : usuario2.getDomicilios()) {
+                    Domicilio domicilioUsuario = new Domicilio();
+
+                    domicilioUsuario.setIdDomicilio(dom.getIdDomicilio());
+                    domicilioUsuario.setCalle(dom.getCalle());
+                    domicilioUsuario.setNumeroDomicilio(dom.getNumeroDomicilio());
+                    domicilioUsuario.setLocalidad(dom.getLocalidad());
+
+                    domicilios.add(domicilioUsuario);
+                }
+                usuario.setDomicilios(domicilios);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return usuario;
     }
 
 //    public ResponseEntity<CrearUsuarioDto> crearUsuario(CrearUsuarioDto dto){
