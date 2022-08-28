@@ -1,7 +1,11 @@
 package com.app.elbuensabor.Dto;
 
+import com.app.elbuensabor.Entidad.Domicilio;
+import com.app.elbuensabor.Entidad.Rol;
 import lombok.*;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -14,9 +18,11 @@ public class UsuarioDto {
     private String nombres;
     private String apellidos;
     private String email;
-    private String usuario;   //Usuario de ingreso para loguearse
+    private String usuario;
     private int telefono;
     private String clave;
-    private String rol;
     boolean bajaUsuario;
+    //relaciones
+    private Rol rol;
+    private List<Domicilio> domicilios;
 }
