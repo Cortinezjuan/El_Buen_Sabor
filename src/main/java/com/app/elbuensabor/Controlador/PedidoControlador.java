@@ -44,8 +44,8 @@ public class PedidoControlador {
     }
 
     @PutMapping("/modificarPedido")
-    public Pedido modificarPedido(@RequestBody Pedido pedido) {
-        return pedidoServicio.modificarPedido(pedido);
+    public Pedido modificarPedido(@RequestBody PedidoDto pedidoDto) {
+        return pedidoServicio.modificarPedido(pedidoDto);
     }
 
     @GetMapping("/pedidosPorUsuario")

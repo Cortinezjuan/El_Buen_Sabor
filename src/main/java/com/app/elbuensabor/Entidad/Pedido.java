@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Builder
 public class Pedido {
@@ -21,8 +21,6 @@ public class Pedido {
 
     private Date fechaPedido;
     private int numeroPedido;
-    private int estadoPedido;
-
     private Date horaEstimadaFinPedido;
     private int tipoEnvio;
     private double totalPedido;
@@ -40,14 +38,13 @@ public class Pedido {
     @OneToOne
     @JoinColumn(name="idDomicilio")
     private Domicilio domicilio;
-    @OneToMany()
-    @JoinColumn(name="idPedido")
-    private List<EstadoPedido> estadoPedidos;
+    @OneToOne
+    private Estado estado;
 
-    public Pedido(int idPedido, Date fechaPedido, int numeroPedido, int estadoPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio) {
+    public Pedido(int idPedido, Date fechaPedido, int numeroPedido, Date horaEstimadaFinPedido, int tipoEnvio, double totalPedido, boolean bajaPedido, Factura factura, List<DetallePedido> detalles, Usuario usuario, Domicilio domicilio, Estado estado) {
+
         this.fechaPedido = fechaPedido;
         this.numeroPedido = numeroPedido;
-        this.estadoPedido = estadoPedido;
         this.horaEstimadaFinPedido = horaEstimadaFinPedido;
         this.tipoEnvio = tipoEnvio;
         this.totalPedido = totalPedido;
@@ -56,5 +53,6 @@ public class Pedido {
         this.detalles = detalles;
         this.usuario = usuario;
         this.domicilio = domicilio;
+        this.estado = estado;
     }
 }
