@@ -25,9 +25,9 @@ public class ArticuloInsumoControlador {
         return articuloInsumoServicio.listarArticulosInsumo();
     }
 
-    @GetMapping("/listarArticuloInsumoXId/{id}")
-    public Optional<ArticuloInsumo> listarArticuloInsumoPorId(@PathVariable("id") int id) {
-        return articuloInsumoServicio.listarArticuloInsumoPorId(id);
+    @GetMapping("/articuloInsumoXId/{id}")
+    public ArticuloInsumoDto articuloInsumoPorId(@PathVariable("id") int id) {
+        return articuloInsumoServicio.articuloInsumoPorId(id);
     }
 
     @PostMapping("/crearArticuloInsumo")
@@ -46,7 +46,7 @@ public class ArticuloInsumoControlador {
         articuloInsumoServicio.borrarArticuloInsumo(id);
     }
 
-    @PutMapping("/modificarArticuloInsumo")
+    @PutMapping("/modificarArticuloInsumo/{id}")
     @Transactional
     public ResponseEntity<Object> put(@PathVariable int id, @RequestBody ArticuloInsumoDto dto ) {
         try {

@@ -21,13 +21,13 @@ public class RubroArticulo {
     private boolean bajaRubroArticulo;
 
     //RELACIONES
-    @OneToMany(mappedBy = "rubroArticulo", cascade = CascadeType.ALL)
+/*    @OneToMany(mappedBy = "rubroArticulo", cascade = CascadeType.ALL)
     private List<ArticuloInsumo> articulosInsumo;
     @OneToOne
     @JoinColumn(name="idRubroArticuloPadre")
     private RubroArticulo rubroArticuloPadre;
     @OneToMany
-    private List<RubroArticulo> rubrosArticulosHijos;
+    private List<RubroArticulo> rubrosArticulosHijos;*/
 
 
 }

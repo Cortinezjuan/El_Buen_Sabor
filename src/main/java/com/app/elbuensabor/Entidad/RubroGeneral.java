@@ -15,7 +15,6 @@ public class RubroGeneral {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int idRubroGeneral;
-
     private String denominacionRubroGeneral;
     private boolean bajaRubroGeneral;
 

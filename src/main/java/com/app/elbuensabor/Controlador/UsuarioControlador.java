@@ -22,12 +22,12 @@ public class UsuarioControlador {
     UsuarioServicio usuarioServicio;
 
     @GetMapping("/listarUsuarios")
-    public List<Usuario> listarUsuarios() {
+    public List<UsuarioDto> listarUsuarios() {
         return usuarioServicio.listarUsuarios();
     }
 
     @GetMapping("/listarUsuarioXId/{id}")
-    public Optional<Usuario> listarUsuarioPorId(@PathVariable("id") int id) {
+    public UsuarioDto listarUsuarioPorId(@PathVariable("id") int id) {
         return usuarioServicio.listarUsuarioPorId(id);
     }
     @DeleteMapping("/borrarUsuario/{id}")
@@ -40,10 +40,10 @@ public class UsuarioControlador {
         return usuarioServicio.modificarUsuario(usuario);
     }
 
-    @PostMapping("/crearUsuario")
-    public ResponseEntity<CrearUsuarioDto> crearUsuario(@RequestBody CrearUsuarioDto dto) throws CredencialInvalidaException {
-        return usuarioServicio.crearUsuario(dto);
-    }
+//    @PostMapping("/crearUsuario")
+//    public ResponseEntity<CrearUsuarioDto> crearUsuario(@RequestBody CrearUsuarioDto dto) throws CredencialInvalidaException {
+//        return usuarioServicio.crearUsuario(dto);
+//    }
 
     @GetMapping("/login")
     @ResponseBody
@@ -51,10 +51,10 @@ public class UsuarioControlador {
         return usuarioServicio.login(usuario,clave);
     }
 
-    @GetMapping("/listarUsuariosEmpleados")
-    public List<UsuarioDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
-        return usuarioServicio.listarUsuariosEmpleados();
-    }
+//    @GetMapping("/listarUsuariosEmpleados")
+//    public List<UsuarioDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
+//        return usuarioServicio.listarUsuariosEmpleados();
+//    }
 
     @GetMapping("/getUsuarioByNombreUsuario")
     public UsuarioDto getUsuarioBynombreUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario){

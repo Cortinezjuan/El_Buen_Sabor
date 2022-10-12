@@ -21,26 +21,10 @@ public class ArticuloInsumoServicio {
     @Autowired
     ArticuloInsumoRepositorio articuloInsumoRepositorio;
 
-    public List<BebidaDto> listarBebidas() {
-        List<ArticuloInsumo> articulos = articuloInsumoRepositorio.listarBebidas();
-        List<BebidaDto> bebidas = new ArrayList<>();
-        for (ArticuloInsumo aux : articulos) {
-            BebidaDto bebida = BebidaDto.builder()
-                    .idBebida(aux.getIdArticuloInsumo())
-                    .nombreBebida(aux.getDenominacionArticuloInsumo())
-                    .imagenBebida(aux.getImagenArticuloInsumo())
-                    .stock(aux.getStockActual())
-                    .precioTotal(aux.getPreciosArticulosInsumo().get(0).getPrecioVentaArticuloInsumo())
-                    .build();
-            bebidas.add(bebida);
-        }
-        return bebidas;
-    }
-
     public List<ArticuloInsumoDto> listarArticulosInsumo() {
         List<ArticuloInsumoDto> result = new ArrayList<>();
 
-        for ( ArticuloInsumo articulo2 : articuloInsumoRepositorio.findAll() ) {
+        for ( ArticuloInsumo articulo2 : articuloInsumoRepositorio.listarAritculosInsumo() ) {
             ArticuloInsumoDto articulo = new ArticuloInsumoDto();
 
             articulo.setIdArticuloInsumo(articulo2.getIdArticuloInsumo());
@@ -88,8 +72,57 @@ public class ArticuloInsumoServicio {
         return result;
     }
 
-    public Optional<ArticuloInsumo> listarArticuloInsumoPorId(int id) {
-        return articuloInsumoRepositorio.findById(id);
+    public ArticuloInsumoDto articuloInsumoPorId(int id) {
+        Optional<ArticuloInsumo> insumoOptional = articuloInsumoRepositorio.findById(id);
+        ArticuloInsumoDto insumo = new ArticuloInsumoDto();
+
+        try {
+        ArticuloInsumo insumo2 = insumoOptional.get();
+        insumo.setIdArticuloInsumo(insumo2.getIdArticuloInsumo());
+        insumo.setDenominacionArticuloInsumo(insumo2.getDenominacionArticuloInsumo());
+        insumo.setImagenArticuloInsumo(insumo2.getImagenArticuloInsumo());
+        insumo.setStockActual(insumo2.getStockActual());
+        insumo.setStockMinimo(insumo2.getStockMinimo());
+        insumo.setUnidadMedidaArticuloInsumo(insumo2.getUnidadMedidaArticuloInsumo());
+        insumo.setEsArticuloInsumo(insumo2.isEsArticuloInsumo());
+
+            try {
+                List<PrecioArticuloInsumo> precio = new ArrayList<>();
+
+                for (PrecioArticuloInsumo precioArt : insumo2.getPreciosArticulosInsumo()) {
+                    PrecioArticuloInsumo preciosInsumo = new PrecioArticuloInsumo();
+
+                    preciosInsumo.setIdPrecio(precioArt.getIdPrecio());
+                    preciosInsumo.setPrecioCostoArticuloInsumo(precioArt.getPrecioCostoArticuloInsumo());
+                    preciosInsumo.setPrecioVentaArticuloInsumo(precioArt.getPrecioVentaArticuloInsumo());
+                    preciosInsumo.setFechaPrecioArtInsumo(precioArt.getFechaPrecioArtInsumo());
+                    preciosInsumo.setCantidadPrecioArtInsumo(precioArt.getCantidadPrecioArtInsumo());
+
+                    precio.add(preciosInsumo);
+                }
+                insumo.setPreciosArticulosInsumo(precio);
+
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+
+            try {
+                RubroArticulo rubro = new RubroArticulo();
+
+                rubro.setIdRubroArticulo(insumo2.getRubroArticulo().getIdRubroArticulo());
+                rubro.setDenominacionRubroArticulo(insumo2.getRubroArticulo().getDenominacionRubroArticulo());
+                //rubro.setRubroArticuloPadre(articulo2.getRubroArticulo());
+
+                insumo.setRubroArticulo(rubro);
+
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return insumo;
     }
 
     @Transactional
@@ -124,6 +157,7 @@ public class ArticuloInsumoServicio {
         try {
             RubroArticulo rubroArticulo = new RubroArticulo();
             rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+         //   rubroArticulo.setIdRubroArticulo(1);
             articuloInsumo.setRubroArticulo(rubroArticulo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -168,7 +202,8 @@ public class ArticuloInsumoServicio {
 
         try {
             RubroArticulo rubroArticulo = new RubroArticulo();
-            rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+             rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+           // rubroArticulo.setIdRubroArticulo(1);
             articuloInsumo.setRubroArticulo(rubroArticulo);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -182,9 +217,26 @@ public class ArticuloInsumoServicio {
     }
         return articuloInsumoDto;
     }
+
     public void borrarArticuloInsumo(int id){
         Optional<ArticuloInsumo> articuloInsumo = articuloInsumoRepositorio.findById(id);
         articuloInsumo.get().setBajaArticuloInsumo(true);
         articuloInsumoRepositorio.save(articuloInsumo.get());
+    }
+
+    public List<BebidaDto> listarBebidas() {
+        List<ArticuloInsumo> articulos = articuloInsumoRepositorio.listarBebidas();
+        List<BebidaDto> bebidas = new ArrayList<>();
+        for (ArticuloInsumo aux : articulos) {
+            BebidaDto bebida = BebidaDto.builder()
+                    .idBebida(aux.getIdArticuloInsumo())
+                    .nombreBebida(aux.getDenominacionArticuloInsumo())
+                    .imagenBebida(aux.getImagenArticuloInsumo())
+                    .stock(aux.getStockActual())
+                    .precioTotal(aux.getPreciosArticulosInsumo().get(0).getPrecioVentaArticuloInsumo())
+                    .build();
+            bebidas.add(bebida);
+        }
+        return bebidas;
     }
 }

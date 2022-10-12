@@ -19,7 +19,6 @@ public class ArticuloInsumoDto {
     private double stockMinimo;
     private String unidadMedidaArticuloInsumo;
     private boolean esArticuloInsumo;
-    private boolean bajaArticuloInsumo;
     //relaciones
     private List<PrecioArticuloInsumo> preciosArticulosInsumo;
     private RubroArticulo rubroArticulo;
