@@ -45,6 +45,7 @@ public class RubroGeneralServicio {
             rubro.setIdRubroGeneral(rubro2.getIdRubroGeneral());
             rubro.setDenominacionRubroGeneral(rubro2.getDenominacionRubroGeneral());
 
+            //se pasa una lista vacia porque se usa otro dto para mostrar este dato
             List<String> articulosMF = new ArrayList<>();
             rubro.setArticulosManufacturados(articulosMF);
 

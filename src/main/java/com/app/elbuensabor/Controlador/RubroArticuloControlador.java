@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.RubroArticuloDto;
 import com.app.elbuensabor.Entidad.RubroArticulo;
 import com.app.elbuensabor.Servicio.RubroArticuloServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,23 +12,19 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/rubroArticulo")
 public class RubroArticuloControlador {
 
     @Autowired
     RubroArticuloServicio rubroArticuloServicio;
 
     @GetMapping("/listarRubrosArticulos")
-    public List<RubroArticulo> listarRubrosArticulos() {
+    public List<RubroArticuloDto> listarRubrosArticulos() {
         return rubroArticuloServicio.listarRubrosArticulos();
     }
 
- /*   @GetMapping("/listarSubRubrosXId/{id}")
-    public List<RubroArticulo> listarSubRubrosPorId(@PathVariable("id") int id) {
-        return rubroArticuloServicio.listarSubRubrosPorId(id);
-    }*/
-
     @GetMapping("/listarRubroArticuloXId/{id}")
-    public Optional<RubroArticulo> listarRubroArticuloPorId(@PathVariable("id") int id) {
+    public RubroArticuloDto listarRubroArticuloPorId(@PathVariable("id") int id) {
         return rubroArticuloServicio.listarRubroArticuloPorId(id);
     }
 
