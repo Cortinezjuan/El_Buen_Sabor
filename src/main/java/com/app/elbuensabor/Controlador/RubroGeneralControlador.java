@@ -23,7 +23,7 @@ public class RubroGeneralControlador {
     }
 
     @GetMapping("/listarRubroGeneralXId/{id}")
-    public Optional<RubroGeneral> listarRubroGeneralPorId(@PathVariable("id") int id) {
+    public RubroGeneralDto listarRubroGeneralPorId(@PathVariable("id") int id) {
         return rubroGeneralServicio.listarRubroGeneralPorId(id);
     }
 
