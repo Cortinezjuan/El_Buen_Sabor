@@ -36,12 +36,25 @@ public class RubroGeneralServicio {
         return rubrosDto;
     }
 
-    //public List<RubroGeneral> listarRubroGenerales() {
-    //    return rubroGeneralRepositorio.listarRubroGenerales();
-    //}
+    public RubroGeneralDto listarRubroGeneralPorId(int id) {
+        Optional<RubroGeneral> rubroOptional = rubroGeneralRepositorio.findById(id);
+        RubroGeneralDto rubro = new RubroGeneralDto();
 
-    public Optional<RubroGeneral> listarRubroGeneralPorId(int id) {
-        return rubroGeneralRepositorio.findById(id);
+        try {
+            RubroGeneral rubro2 =  rubroOptional.get();
+            rubro.setIdRubroGeneral(rubro2.getIdRubroGeneral());
+            rubro.setDenominacionRubroGeneral(rubro2.getDenominacionRubroGeneral());
+
+            //se pasa una lista vacia porque se usa otro dto para mostrar este dato
+            List<String> articulosMF = new ArrayList<>();
+            rubro.setArticulosManufacturados(articulosMF);
+
+
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return rubro;
     }
 
     public RubroGeneral guardarRubroGeneral(RubroGeneral rubroGeneral) {

@@ -1,6 +1,10 @@
 package com.app.elbuensabor.Servicio;
 
+import com.app.elbuensabor.Dto.RubroArticuloDto;
+import com.app.elbuensabor.Dto.RubroGeneralDto;
+import com.app.elbuensabor.Entidad.ArticuloInsumo;
 import com.app.elbuensabor.Entidad.RubroArticulo;
+import com.app.elbuensabor.Entidad.RubroGeneral;
 import com.app.elbuensabor.Repositorio.RubroArticuloRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,32 +19,50 @@ public class RubroArticuloServicio {
     @Autowired
     RubroArticuloRepositorio rubroArticuloRepositorio;
 
-    public List<RubroArticulo> listarRubrosArticulos() {
-        return rubroArticuloRepositorio.listarRubrosArticulos();
-    }
+    public List<RubroArticuloDto> listarRubrosArticulos() {
+        List<RubroArticulo> rubros = rubroArticuloRepositorio.findAll();
+        List<RubroArticuloDto> rubrosDto = new ArrayList<>();
 
-    //metodo recursivo de rubros
-  /*  public List<RubroArticulo> listarSubRubrosPorId(int id) {
-
-        RubroArticulo rubroArecorrer = rubroArticuloRepositorio.buscarPorId(id);
-        List<RubroArticulo> listaRecursiva = new ArrayList<>();
-        listaRecursion(rubroArecorrer, listaRecursiva);
-        return listaRecursiva;
-
-    }*/
-
-   /* public void listaRecursion(RubroArticulo rubro, List<RubroArticulo> listaRubros) {
-        listaRubros.add(rubro);
-        if (rubro.getRubrosArticulosHijos() != null) {
-            for (RubroArticulo rubroHijo : rubro.getRubrosArticulosHijos()) {
-                listaRecursion(rubroHijo, listaRubros);
+        for (RubroArticulo aux : rubros) {
+            List<String> articulosInsumos = new ArrayList<>();
+            if(!(aux.isBajaRubroArticulo())){
+                for (ArticuloInsumo art : aux.getArticulosInsumos()) {
+                    if(!art.isBajaArticuloInsumo()) {
+                        articulosInsumos.add(art.getDenominacionArticuloInsumo());
+                    }
+                }
+                RubroArticuloDto rubroDto = RubroArticuloDto.builder().idRubroArticulo(aux.getIdRubroArticulo())
+                        .denominacionRubroArticulo(aux.getDenominacionRubroArticulo())
+                        .articulosInsumos(articulosInsumos)
+                        .build();
+                rubrosDto.add(rubroDto);
             }
         }
-    }*/
-
-    public Optional<RubroArticulo> listarRubroArticuloPorId(int id) {
-        return rubroArticuloRepositorio.findById(id);
+        return rubrosDto;
     }
+
+
+    public RubroArticuloDto listarRubroArticuloPorId(int id) {
+
+            Optional<RubroArticulo> rubroOptional = rubroArticuloRepositorio.findById(id);
+            RubroArticuloDto rubro = new RubroArticuloDto();
+
+            try {
+                RubroArticulo rubro2 =  rubroOptional.get();
+                rubro.setIdRubroArticulo(rubro2.getIdRubroArticulo());
+                rubro.setDenominacionRubroArticulo(rubro2.getDenominacionRubroArticulo());
+
+                //se pasa una lista vacia porque se usa otro dto para mostrar este dato
+                List<String> articulosInsumo = new ArrayList<>();
+                rubro.setArticulosInsumos(articulosInsumo);
+
+
+            }catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            return rubro;
+        }
 
     public RubroArticulo guardarRubroArticulo(RubroArticulo rubroArticulo) {
         return rubroArticuloRepositorio.save(rubroArticulo);

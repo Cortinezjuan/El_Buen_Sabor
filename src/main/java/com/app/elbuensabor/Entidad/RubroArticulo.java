@@ -21,13 +21,12 @@ public class RubroArticulo {
     private boolean bajaRubroArticulo;
 
     //RELACIONES
-/*    @OneToMany(mappedBy = "rubroArticulo", cascade = CascadeType.ALL)
-    private List<ArticuloInsumo> articulosInsumo;
-    @OneToOne
-    @JoinColumn(name="idRubroArticuloPadre")
-    private RubroArticulo rubroArticuloPadre;
-    @OneToMany
-    private List<RubroArticulo> rubrosArticulosHijos;*/
+    @OneToMany(mappedBy = "rubroArticulo", cascade = CascadeType.ALL)
+    private List<ArticuloInsumo> articulosInsumos;
 
-
+    public RubroArticulo(int idRubroArticulo, String denominacionRubroArticulo) {
+        this.idRubroArticulo = idRubroArticulo;
+        this.denominacionRubroArticulo = denominacionRubroArticulo;
+        this.bajaRubroArticulo = false;
+    }
 }
