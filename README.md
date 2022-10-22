@@ -32,13 +32,13 @@ Proyecto de tipo API REST, realizado en lenguaje Java con SpringBoot. La arquite
 
 ## Herramientas 🔧
 
-✅ Desarrollo en JAVA 8 (v1.8.0.333) 
+📌 Desarrollo en JAVA 8 (v1.8.0.333) 
 
-✅ SpringBoot (v2.7.0)
+📌 SpringBoot (v2.7.0)
 
-✅ MySQL (version 8.0.28 )
+📌 MySQL (version 8.0.28 )
 
-✅ Pluggins para JPA e Hibernate
+📌 Pluggins para JPA e Hibernate
 
 
 ## Ejecución 🕹️
