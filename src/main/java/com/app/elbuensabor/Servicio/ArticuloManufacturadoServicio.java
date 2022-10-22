@@ -3,9 +3,7 @@ package com.app.elbuensabor.Servicio;
 import com.app.elbuensabor.Dto.ArticuloMFRubroDto;
 import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
 import com.app.elbuensabor.Dto.CarritoDto;
-import com.app.elbuensabor.Entidad.ArticuloInsumo;
-import com.app.elbuensabor.Entidad.ArticuloManufacturado;
-import com.app.elbuensabor.Entidad.ArticuloManufacturadoDetalle;
+import com.app.elbuensabor.Entidad.*;
 import com.app.elbuensabor.Repositorio.ArticuloInsumoRepositorio;
 import com.app.elbuensabor.Repositorio.ArticuloManufacturadoRepositorio;
 import com.app.elbuensabor.Repositorio.PrecioArticuloManufacturadoRepositorio;
@@ -35,25 +33,52 @@ public class ArticuloManufacturadoServicio {
             List<String> insumos = new ArrayList<>();
             int stockMinimo = 1000;
             for(ArticuloManufacturadoDetalle auxDetalle: aux.getArticuloManufacturadoDetalles()){
-                  int stockActual = articuloInsumoRepositorio.findStockByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
-                  int cantidadAPreparar = stockActual*1000/auxDetalle.getCantidadArticuloManuDetalle();
+                  double stockActual = articuloInsumoRepositorio.findStockByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
+                  double cantidadAPreparar = stockActual*1000.0/auxDetalle.getCantidadArticuloManuDetalle();
                   if(cantidadAPreparar<stockMinimo){
-                      stockMinimo = cantidadAPreparar;
+                      stockMinimo = (int) cantidadAPreparar;
                   }
                   insumos.add(auxDetalle.getArticuloInsumo().getDenominacionArticuloInsumo());
             }
 
+            RubroGeneral rubroGeneral = new RubroGeneral();
+            rubroGeneral.setIdRubroGeneral(aux.getRubroGeneral().getIdRubroGeneral());
+            rubroGeneral.setDenominacionRubroGeneral(aux.getRubroGeneral().getDenominacionRubroGeneral());
+
+
+
             if(stockMinimo > 0){
-                Double precioArticulo = precioArticuloManufacturadoRepositorio.findByIdArticuloManufacturado(aux.getIdArticuloManufacturado());
+
+
+                try{
+                    List<PrecioArticuloManufacturado> precios = new ArrayList<>();
+
+                    for (PrecioArticuloManufacturado precioArt : aux.getPrecioArticuloManufacturados() ) {
+
+                        PrecioArticuloManufacturado precioArticuloManufacturado = new PrecioArticuloManufacturado();
+                        precioArticuloManufacturado.setIdPrecioArticuloManufacturado(precioArt.getIdPrecioArticuloManufacturado());
+                        precioArticuloManufacturado.setPrecioCostoArticuloManufacturado(precioArt.getPrecioCostoArticuloManufacturado());
+                        precioArticuloManufacturado.setPrecioVentaArticuloManufacturado(precioArt.getPrecioVentaArticuloManufacturado());
+                        precioArticuloManufacturado.setFechaPrecioArtManu(precioArt.getFechaPrecioArtManu());
+                        precioArticuloManufacturado.setCantidadPrecioArtManu(precioArt.getCantidadPrecioArtManu());
+
+                        precios.add(precioArticuloManufacturado);
+                    }
+                    aux.setPrecioArticuloManufacturados(precios);
+
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
 
                 ArticuloManufacturadoDto auxDto = ArticuloManufacturadoDto.builder()
                         .imagenArticuloManu(aux.getImagenArticuloManu())
                         .idArticuloManufacturado(aux.getIdArticuloManufacturado())
                         .denominacionArticuloManu(aux.getDenominacionArticuloManu())
                         .tiempoEstimadoCocina(aux.getTiempoEstimadoCocina())
-                        .precioTotal(precioArticulo)
+                        .preciosArticulosManufacturados(aux.getPrecioArticuloManufacturados())
                         .stock(stockMinimo)
                         .insumos(insumos)
+                        .rubroGeneral(rubroGeneral)
                         .build();
                 articulosDto.add(auxDto);
             }
@@ -70,26 +95,47 @@ public class ArticuloManufacturadoServicio {
             List<String> insumos = new ArrayList<>();
             int stockMinimo = 1000;
             for(ArticuloManufacturadoDetalle auxDetalle: aux.getArticuloManufacturadoDetalles()){
-                int stockActual = articuloInsumoRepositorio.findStockByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
-                int cantidadAPreparar = stockActual*1000/auxDetalle.getCantidadArticuloManuDetalle();
+                double stockActual = articuloInsumoRepositorio.findStockByIdArticuloInsumo(auxDetalle.getArticuloInsumo().getIdArticuloInsumo());
+                double cantidadAPreparar = stockActual*1000/auxDetalle.getCantidadArticuloManuDetalle();
                 if(cantidadAPreparar<stockMinimo){
-                    stockMinimo = cantidadAPreparar;
+                    stockMinimo = (int)cantidadAPreparar;
                 }
                 insumos.add(auxDetalle.getArticuloInsumo().getDenominacionArticuloInsumo());
             }
+            RubroGeneral rubroGeneral = new RubroGeneral();
+            rubroGeneral.setIdRubroGeneral(aux.getRubroGeneral().getIdRubroGeneral());
+            rubroGeneral.setDenominacionRubroGeneral(aux.getRubroGeneral().getDenominacionRubroGeneral());
 
             if(stockMinimo > 0){
-                Double precioArticulo = precioArticuloManufacturadoRepositorio.findByIdArticuloManufacturado(aux.getIdArticuloManufacturado());
+                try{
+                    List<PrecioArticuloManufacturado> precios = new ArrayList<>();
+
+                    for (PrecioArticuloManufacturado precioArt : aux.getPrecioArticuloManufacturados() ) {
+
+                        PrecioArticuloManufacturado precioArticuloManufacturado = new PrecioArticuloManufacturado();
+                        precioArticuloManufacturado.setIdPrecioArticuloManufacturado(precioArt.getIdPrecioArticuloManufacturado());
+                        precioArticuloManufacturado.setPrecioCostoArticuloManufacturado(precioArt.getPrecioCostoArticuloManufacturado());
+                        precioArticuloManufacturado.setPrecioVentaArticuloManufacturado(precioArt.getPrecioVentaArticuloManufacturado());
+                        precioArticuloManufacturado.setFechaPrecioArtManu(precioArt.getFechaPrecioArtManu());
+                        precioArticuloManufacturado.setCantidadPrecioArtManu(precioArt.getCantidadPrecioArtManu());
+
+                        precios.add(precioArticuloManufacturado);
+                    }
+                    aux.setPrecioArticuloManufacturados(precios);
+
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
 
                 ArticuloMFRubroDto auxDto2 = ArticuloMFRubroDto.builder()
                         .imagenArticuloManu(aux.getImagenArticuloManu())
                         .idArticuloManufacturado(aux.getIdArticuloManufacturado())
                         .denominacionArticuloManu(aux.getDenominacionArticuloManu())
                         .tiempoEstimadoCocina(aux.getTiempoEstimadoCocina())
-                        .precioTotal(precioArticulo)
+                        .preciosArticulosManufacturados(aux.getPrecioArticuloManufacturados())
                         .stock(stockMinimo)
                         .insumos(insumos)
-                        .idRubroGeneral(aux.getRubroGeneral().getIdRubroGeneral())
+                        .rubroGeneral(aux.getRubroGeneral())
                         .build();
                 articulosDto.add(auxDto2);
             }
@@ -123,7 +169,7 @@ public class ArticuloManufacturadoServicio {
                 double proporcion = insumo.getCantidadArticuloManuDetalle();
                 double cantADescontar = proporcion * aux.getCantidad();
                 double stockOriginal = insumo.getArticuloInsumo().getStockActual();
-                double stockActual = stockOriginal - cantADescontar/1000;
+                double stockActual = stockOriginal - cantADescontar/1000.0;
                 insumo.getArticuloInsumo().setStockActual(stockActual);
                 articuloInsumoRepositorio.save(insumo.getArticuloInsumo());
             }
