@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Dto;
 
+import com.app.elbuensabor.Entidad.ArticuloManufacturadoDetalle;
 import com.app.elbuensabor.Entidad.PrecioArticuloManufacturado;
 import com.app.elbuensabor.Entidad.RubroGeneral;
 import lombok.*;

@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.ArticuloManufacturadoDetalleDto;
 import com.app.elbuensabor.Entidad.ArticuloManufacturadoDetalle;
 import com.app.elbuensabor.Servicio.ArticuloManufacturadoDetalleServicio;
 import org.springframework.beans.factory.annotation.Autowired;

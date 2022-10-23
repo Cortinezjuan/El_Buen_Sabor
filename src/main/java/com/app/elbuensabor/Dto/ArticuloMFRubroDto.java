@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Dto;
 
+import com.app.elbuensabor.Entidad.ArticuloManufacturadoDetalle;
 import com.app.elbuensabor.Entidad.PrecioArticuloManufacturado;
 import com.app.elbuensabor.Entidad.RubroGeneral;
 import lombok.*;
@@ -18,6 +19,6 @@ public class ArticuloMFRubroDto {
     private int stock;
     //relaciones
     private List<PrecioArticuloManufacturado> preciosArticulosManufacturados;
-    private List<String> insumos;
+    private List<ArticuloManufacturadoDetalle> articuloManufacturadoDetalles;
     private RubroGeneral rubroGeneral;
 }
