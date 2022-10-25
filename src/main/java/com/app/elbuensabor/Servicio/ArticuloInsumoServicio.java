@@ -36,7 +36,7 @@ public class ArticuloInsumoServicio {
             articulo.setEsArticuloInsumo(articulo2.isEsArticuloInsumo());
 
             try {
-                List<PrecioArticuloInsumo> precio = new ArrayList<>();
+                List<PrecioArticuloInsumo> precios = new ArrayList<>();
 
                 for (PrecioArticuloInsumo precioArt : articulo2.getPreciosArticulosInsumo() ) {
                     PrecioArticuloInsumo precioArticuloInsumo = new PrecioArticuloInsumo();
@@ -46,9 +46,9 @@ public class ArticuloInsumoServicio {
                     precioArticuloInsumo.setFechaPrecioArtInsumo(precioArt.getFechaPrecioArtInsumo());
                     precioArticuloInsumo.setCantidadPrecioArtInsumo(precioArt.getCantidadPrecioArtInsumo());
 
-                    precio.add(precioArticuloInsumo);
+                    precios.add(precioArticuloInsumo);
                 }
-                articulo.setPreciosArticulosInsumo(precio);
+                articulo.setPreciosArticulosInsumo(precios);
 
             }catch (Exception e){
                 System.out.println(e.getMessage());

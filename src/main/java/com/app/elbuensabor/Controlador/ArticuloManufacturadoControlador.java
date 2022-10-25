@@ -24,14 +24,15 @@ public class ArticuloManufacturadoControlador {
         return articuloManufacturadoServicio.listarArticuloManufacturados();
     }
 
+    //-----------------------------Métodos para ArticuloMFRubroDto-----------------------
     @GetMapping("/listarArticuloManufacturadosRubros")
     public List<ArticuloMFRubroDto> listarArticuloManufacturadosRubro() {
         return articuloManufacturadoServicio.listarArticuloManufacturadosRubro();
     }
-
+    //-----------------------------------------------------------------------------------
     @GetMapping("/listarArticuloManufacturadoXId/{id}")
-    public Optional<ArticuloManufacturado> listarArticuloManufacturadoPorId(@PathVariable("id") int id) {
-        return articuloManufacturadoServicio.listarArticuloManufacturadoPorId(id);
+    public ArticuloMFRubroDto listarArticuloManufacturadoPorId(@PathVariable("id") int id) {
+        return articuloManufacturadoServicio.listarArticuloMFPorId(id);
     }
 
     @PostMapping("/articuloManufacturado")

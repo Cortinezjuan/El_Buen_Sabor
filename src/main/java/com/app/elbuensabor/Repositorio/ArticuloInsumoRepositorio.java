@@ -17,7 +17,7 @@ public interface ArticuloInsumoRepositorio extends JpaRepository <ArticuloInsumo
     @Query(value="SELECT stock_actual " +
             "FROM articulo_insumo " +
             "WHERE id_articulo_insumo = :idArticulo ", nativeQuery = true)
-    int findStockByIdArticuloInsumo(int idArticulo);
+    double findStockByIdArticuloInsumo(int idArticulo);
 
     @Query(value="SELECT * FROM articulo_insumo WHERE baja_articulo_insumo = false AND es_articulo_insumo= false", nativeQuery = true)
     List<ArticuloInsumo> listarBebidas();
