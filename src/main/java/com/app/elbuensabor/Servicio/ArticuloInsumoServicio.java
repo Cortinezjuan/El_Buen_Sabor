@@ -135,13 +135,14 @@ public class ArticuloInsumoServicio {
         articuloInsumo.setStockMinimo(articuloInsumoDto.getStockMinimo());
         articuloInsumo.setUnidadMedidaArticuloInsumo(articuloInsumoDto.getUnidadMedidaArticuloInsumo());
         articuloInsumo.setEsArticuloInsumo(articuloInsumoDto.isEsArticuloInsumo());
-        articuloInsumo.setBajaArticuloInsumo(articuloInsumo.isBajaArticuloInsumo());
+        articuloInsumo.setBajaArticuloInsumo(articuloInsumoDto.isBajaArticuloInsumo());
 
         try {
             List<PrecioArticuloInsumo> preciosArticulosInsumo = new ArrayList<>();
             for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
                 PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
 
+                precioNuevo.setIdPrecio(precio.getIdPrecio());
                 precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
                 precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
                 precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());
@@ -175,6 +176,7 @@ public class ArticuloInsumoServicio {
         try {
             articuloInsumo = optional.get();
 
+
             articuloInsumo.setDenominacionArticuloInsumo(articuloInsumoDto.getDenominacionArticuloInsumo());
             articuloInsumo.setImagenArticuloInsumo(articuloInsumoDto.getImagenArticuloInsumo());
             articuloInsumo.setStockActual(articuloInsumoDto.getStockActual());
@@ -188,6 +190,7 @@ public class ArticuloInsumoServicio {
             for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
                 PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
 
+                precioNuevo.setIdPrecio(precio.getIdPrecio());
                 precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
                 precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
                 precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());

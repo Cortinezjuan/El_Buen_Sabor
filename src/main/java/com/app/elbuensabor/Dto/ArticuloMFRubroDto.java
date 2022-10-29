@@ -16,6 +16,7 @@ public class ArticuloMFRubroDto {
     private int tiempoEstimadoCocina;
     private String denominacionArticuloManu;
     private String imagenArticuloManu;
+    private boolean bajaArticuloManu;
     private int stock;
     //relaciones
     private List<PrecioArticuloManufacturado> preciosArticulosManufacturados;
