@@ -2,15 +2,15 @@ package com.app.elbuensabor.Dto;
 
 import com.app.elbuensabor.Entidad.PrecioArticuloInsumo;
 import com.app.elbuensabor.Entidad.RubroArticulo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ArticuloInsumoDto {
     private int idArticuloInsumo;
     private String denominacionArticuloInsumo;

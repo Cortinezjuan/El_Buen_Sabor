@@ -31,7 +31,8 @@ public class ArticuloInsumo {
     @JoinColumn(name="idRubroArticulo", referencedColumnName = "idRubroArticulo")
     private RubroArticulo rubroArticulo;
 
-    public ArticuloInsumo(int idArticuloInsumo, String denominacionArticuloInsumo, String imagenArticuloInsumo, double stockActual, double stockMinimo, String unidadMedidaArticuloInsumo, boolean esArticuloInsumo) {
+
+    public ArticuloInsumo(int idArticuloInsumo, String denominacionArticuloInsumo, String imagenArticuloInsumo, double stockActual, double stockMinimo, String unidadMedidaArticuloInsumo, boolean esArticuloInsumo, List<PrecioArticuloInsumo> preciosArticulosInsumo, RubroArticulo rubroArticulo) {
         this.idArticuloInsumo = idArticuloInsumo;
         this.denominacionArticuloInsumo = denominacionArticuloInsumo;
         this.imagenArticuloInsumo = imagenArticuloInsumo;
@@ -39,6 +40,8 @@ public class ArticuloInsumo {
         this.stockMinimo = stockMinimo;
         this.unidadMedidaArticuloInsumo = unidadMedidaArticuloInsumo;
         this.esArticuloInsumo = esArticuloInsumo;
+        this.preciosArticulosInsumo = preciosArticulosInsumo;
         this.bajaArticuloInsumo = false;
+        this.rubroArticulo = rubroArticulo;
     }
 }
