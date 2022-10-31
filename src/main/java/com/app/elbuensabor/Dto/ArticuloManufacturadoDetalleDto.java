@@ -1,13 +1,14 @@
 package com.app.elbuensabor.Dto;
 
 import com.app.elbuensabor.Entidad.ArticuloInsumo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.app.elbuensabor.Entidad.ArticuloManufacturado;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ArticuloManufacturadoDetalleDto {
 
     private int idArticuloManufacturadoDetalle;
@@ -16,4 +17,5 @@ public class ArticuloManufacturadoDetalleDto {
 
    // relacion
     private ArticuloInsumo articuloInsumo;
+    private ArticuloManufacturado articuloMf;
 }
