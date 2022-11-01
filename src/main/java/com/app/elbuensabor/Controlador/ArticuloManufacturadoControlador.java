@@ -1,11 +1,15 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.ArticuloInsumoDto;
 import com.app.elbuensabor.Dto.ArticuloMFRubroDto;
 import com.app.elbuensabor.Dto.ArticuloManufacturadoDto;
 import com.app.elbuensabor.Dto.CarritoDto;
 import com.app.elbuensabor.Entidad.ArticuloManufacturado;
 import com.app.elbuensabor.Servicio.ArticuloManufacturadoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +39,15 @@ public class ArticuloManufacturadoControlador {
         return articuloManufacturadoServicio.listarArticuloMFPorId(id);
     }
 
-    @PostMapping("/articuloManufacturado")
-    public ArticuloManufacturado crearArticuloManufacturado(@RequestBody ArticuloManufacturado articuloManufacturado) {
-        return articuloManufacturadoServicio.guardarArticuloManufacturado(articuloManufacturado);
+    @PostMapping("/crearArticuloManufacturado")
+    @Transactional
+    public ResponseEntity<Object> post(@RequestBody ArticuloMFRubroDto dto) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(articuloManufacturadoServicio.guardarArticuloManufacturado(dto));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"message\": \"Error. Please try again later.\"}");
+        }
     }
 
     @DeleteMapping("/borrarArticuloManufacturado/{id}")
@@ -45,9 +55,15 @@ public class ArticuloManufacturadoControlador {
         articuloManufacturadoServicio.borrarArticuloManufacturado(id);
     }
 
-    @PutMapping("/modificarArticuloManufacturado")
-    public ArticuloManufacturado modificarArticuloManufacturado(@RequestBody ArticuloManufacturado articuloManufacturado) {
-        return articuloManufacturadoServicio.modificarArticuloManufacturado(articuloManufacturado);
+    @PutMapping("/modificarArticuloManufacturado/{id}")
+    @Transactional
+    public ResponseEntity<Object> put(@PathVariable int id, @RequestBody ArticuloMFRubroDto dto ) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(articuloManufacturadoServicio.modificarArticuloManufacturado(dto, id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"message\": \"Error. Please try again later.\"}");
+        }
     }
 
     @PutMapping("/descontarStock")

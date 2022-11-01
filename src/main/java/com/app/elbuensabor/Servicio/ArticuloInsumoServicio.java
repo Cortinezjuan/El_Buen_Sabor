@@ -129,39 +129,52 @@ public class ArticuloInsumoServicio {
     public ArticuloInsumoDto guardarArticuloInsumo(ArticuloInsumoDto articuloInsumoDto) {
         ArticuloInsumo articuloInsumo = new ArticuloInsumo();
 
-        articuloInsumo.setDenominacionArticuloInsumo(articuloInsumoDto.getDenominacionArticuloInsumo());
-        articuloInsumo.setImagenArticuloInsumo(articuloInsumoDto.getImagenArticuloInsumo());
-        articuloInsumo.setStockActual(articuloInsumoDto.getStockActual());
-        articuloInsumo.setStockMinimo(articuloInsumoDto.getStockMinimo());
-        articuloInsumo.setUnidadMedidaArticuloInsumo(articuloInsumoDto.getUnidadMedidaArticuloInsumo());
-        articuloInsumo.setEsArticuloInsumo(articuloInsumoDto.isEsArticuloInsumo());
-        articuloInsumo.setBajaArticuloInsumo(articuloInsumo.isBajaArticuloInsumo());
-
         try {
-            List<PrecioArticuloInsumo> preciosArticulosInsumo = new ArrayList<>();
-            for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
-                PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
+            articuloInsumo.setIdArticuloInsumo(articuloInsumoDto.getIdArticuloInsumo());
+            articuloInsumo.setDenominacionArticuloInsumo(articuloInsumoDto.getDenominacionArticuloInsumo());
+            articuloInsumo.setImagenArticuloInsumo(articuloInsumoDto.getImagenArticuloInsumo());
+            articuloInsumo.setStockActual(articuloInsumoDto.getStockActual());
+            articuloInsumo.setStockMinimo(articuloInsumoDto.getStockMinimo());
+            articuloInsumo.setUnidadMedidaArticuloInsumo(articuloInsumoDto.getUnidadMedidaArticuloInsumo());
+            articuloInsumo.setEsArticuloInsumo(articuloInsumoDto.isEsArticuloInsumo());
+            articuloInsumo.setBajaArticuloInsumo(articuloInsumoDto.isBajaArticuloInsumo());
 
-                precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
-                precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
-                precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());
-                precioNuevo.setCantidadPrecioArtInsumo(precio.getCantidadPrecioArtInsumo());
+            try {
+                List<PrecioArticuloInsumo> preciosArticulosInsumo = new ArrayList<>();
+                for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
+                    PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
 
-                preciosArticulosInsumo.add(precioNuevo);
+                    precioNuevo.setIdPrecio(precio.getIdPrecio());
+                    precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
+                    precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
+                    precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());
+                    precioNuevo.setCantidadPrecioArtInsumo(precio.getCantidadPrecioArtInsumo());
+
+                    preciosArticulosInsumo.add(precioNuevo);
+                }
+                articuloInsumo.setPreciosArticulosInsumo(preciosArticulosInsumo);
+
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            articuloInsumo.setPreciosArticulosInsumo(preciosArticulosInsumo);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            try {
+                RubroArticulo rubroArticulo = new RubroArticulo();
+                rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
+                //   rubroArticulo.setIdRubroArticulo(1);
+                articuloInsumo.setRubroArticulo(rubroArticulo);
+
+
+            } catch (Exception e) {
+
+                System.out.println(e.getMessage());
+            }
+
+
+        } catch (Exception ex) {                    //catch TRY
+            System.out.println(ex.getMessage());
         }
 
-        try {
-            RubroArticulo rubroArticulo = new RubroArticulo();
-            rubroArticulo.setIdRubroArticulo(articuloInsumoDto.getRubroArticulo().getIdRubroArticulo());
-         //   rubroArticulo.setIdRubroArticulo(1);
-            articuloInsumo.setRubroArticulo(rubroArticulo);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
         articuloInsumoRepositorio.save(articuloInsumo);
         articuloInsumoDto.setIdArticuloInsumo(articuloInsumo.getIdArticuloInsumo());
         return articuloInsumoDto;
@@ -174,6 +187,7 @@ public class ArticuloInsumoServicio {
 
         try {
             articuloInsumo = optional.get();
+
 
             articuloInsumo.setDenominacionArticuloInsumo(articuloInsumoDto.getDenominacionArticuloInsumo());
             articuloInsumo.setImagenArticuloInsumo(articuloInsumoDto.getImagenArticuloInsumo());
@@ -188,6 +202,7 @@ public class ArticuloInsumoServicio {
             for (PrecioArticuloInsumo precio : articuloInsumoDto.getPreciosArticulosInsumo()) {
                 PrecioArticuloInsumo precioNuevo = new PrecioArticuloInsumo();
 
+                precioNuevo.setIdPrecio(precio.getIdPrecio());
                 precioNuevo.setPrecioCostoArticuloInsumo(precio.getPrecioCostoArticuloInsumo());
                 precioNuevo.setPrecioVentaArticuloInsumo(precio.getPrecioVentaArticuloInsumo());
                 precioNuevo.setFechaPrecioArtInsumo(precio.getFechaPrecioArtInsumo());
