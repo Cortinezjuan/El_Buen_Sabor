@@ -38,6 +38,7 @@ public class FacturaControlador {
     public Double ingresosPorPeriodo(@RequestParam(name= "fecha1", defaultValue = "null", required = false) String fecha1, @RequestParam(name="fecha2",defaultValue = "null", required = false) String fecha2) throws ParseException {
         Date fecha3 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
         Date fecha4 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha2);
+        Double ing = facturaServicio.ingresosPorPeriodo(fecha3, fecha4);
         return facturaServicio.ingresosPorPeriodo(fecha3, fecha4);
     }
 

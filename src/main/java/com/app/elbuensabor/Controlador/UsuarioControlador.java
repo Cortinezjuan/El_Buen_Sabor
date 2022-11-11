@@ -21,10 +21,10 @@ public class UsuarioControlador {
     @Autowired
     UsuarioServicio usuarioServicio;
 
-    @GetMapping("/listarUsuarios")
-    public List<UsuarioDto> listarUsuarios() {
-        return usuarioServicio.listarUsuarios();
-    }
+//    @GetMapping("/listarUsuarios")
+//    public List<UsuarioDto> listarUsuarios() {
+//        return usuarioServicio.listarUsuarios();
+//    }
 
     @GetMapping("/listarUsuarioXId/{id}")
     public UsuarioDto listarUsuarioPorId(@PathVariable("id") int id) {
@@ -36,14 +36,14 @@ public class UsuarioControlador {
     }
 
     @PutMapping("/modificarUsuario")
-    public Usuario modificarUsuario(@RequestBody Usuario usuario) {
+    public Usuario modificarUsuario(@RequestBody UsuarioDto usuario) {
         return usuarioServicio.modificarUsuario(usuario);
     }
 
-//    @PostMapping("/crearUsuario")
-//    public ResponseEntity<CrearUsuarioDto> crearUsuario(@RequestBody CrearUsuarioDto dto) throws CredencialInvalidaException {
-//        return usuarioServicio.crearUsuario(dto);
-//    }
+    @PostMapping("/crearUsuario")
+    public ResponseEntity<CrearUsuarioDto> crearUsuario(@RequestBody CrearUsuarioDto dto) throws CredencialInvalidaException {
+        return usuarioServicio.crearUsuario(dto);
+    }
 
     @GetMapping("/login")
     @ResponseBody
@@ -51,10 +51,10 @@ public class UsuarioControlador {
         return usuarioServicio.login(usuario,clave);
     }
 
-//    @GetMapping("/listarUsuariosEmpleados")
-//    public List<UsuarioDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
-//        return usuarioServicio.listarUsuariosEmpleados();
-//    }
+    @GetMapping("/listarUsuariosEmpleados")
+    public List<UsuarioDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
+        return usuarioServicio.listarUsuariosEmpleados();
+    }
 
     @GetMapping("/getUsuarioByNombreUsuario")
     public UsuarioDto getUsuarioBynombreUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario){
