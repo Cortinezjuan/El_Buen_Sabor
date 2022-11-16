@@ -23,13 +23,14 @@ public interface FacturaRepositorio extends JpaRepository<Factura, Integer> {
             "BETWEEN :fecha1 AND :fecha2 AND baja_factura=false", nativeQuery=true)
     Double ingresosPorPeriodo(Date fecha1, Date fecha2);
 
-    /*
+    @Query(value="SELECT MAX(id_factura) from factura", nativeQuery = true)
+    int findIdUltimaFactura();
 
 
 
 
 
-    */
+
 
     //Monto de Ganancia en un periodo de tiempo (ventas – costos)
     @Query(value="SELECT\n" +

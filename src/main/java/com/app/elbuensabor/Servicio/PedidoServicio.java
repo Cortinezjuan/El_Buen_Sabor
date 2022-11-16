@@ -4,14 +4,8 @@ import com.app.elbuensabor.Dto.PedidoDto;
 import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Dto.PedidosPorUsuariosDto;
 import com.app.elbuensabor.Dto.RankingComidasDto;
-import com.app.elbuensabor.Entidad.Domicilio;
-import com.app.elbuensabor.Entidad.Estado;
-import com.app.elbuensabor.Entidad.Pedido;
-import com.app.elbuensabor.Entidad.Usuario;
-import com.app.elbuensabor.Repositorio.DomicilioRepositorio;
-import com.app.elbuensabor.Repositorio.EstadoRepositorio;
-import com.app.elbuensabor.Repositorio.PedidoRepositorio;
-import com.app.elbuensabor.Repositorio.UsuarioRepositorio;
+import com.app.elbuensabor.Entidad.*;
+import com.app.elbuensabor.Repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +23,10 @@ public class PedidoServicio {
     DomicilioRepositorio domicilioRepositorio;
     @Autowired
     EstadoRepositorio estadoRepositorio;
+    @Autowired
+    FacturaServicio facturaServicio;
+    @Autowired
+    FacturaRepositorio facturaRepositorio;
 
 
     public List<PedidoRespDto> listarPedidos() {
@@ -82,6 +80,12 @@ public class PedidoServicio {
         //calendar.setTime(new Date());
         calendar.add(Calendar.MINUTE,pedidoDto.getHoraEstimadaFinPedido());
 
+        Factura factura = new Factura();
+        factura.setFechaFactura(new Date());
+        factura.setNumeroFactura(facturaRepositorio.findIdUltimaFactura()+1);
+        factura.setTotalVenta(pedidoDto.getTotalPedido());
+        facturaServicio.guardarFactura(factura);
+
         Pedido pedido = Pedido.builder()
                 .estado(estado.get())
                 .fechaPedido(new Date())
@@ -90,7 +94,10 @@ public class PedidoServicio {
                 .totalPedido(pedidoDto.getTotalPedido())
                 .domicilio(domicilio)
                 .usuario(usuario)
+                .factura(factura)
                 .build();
+
+
         pedidoRepositorio.save(pedido);
         return pedidoDto;
     }
