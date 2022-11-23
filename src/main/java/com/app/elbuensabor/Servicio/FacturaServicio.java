@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Servicio;
 
+import com.app.elbuensabor.Dto.FacturaDto;
 import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Entidad.Factura;
 import com.app.elbuensabor.Entidad.Pedido;
@@ -28,8 +29,17 @@ public class FacturaServicio {
         return facturaRepositorio.listarFacturas();
     }
 
-    public Optional<Factura> listarFacturaPorId(int id){
-        return facturaRepositorio.findById(id);
+    public FacturaDto listarFacturaPorId(int id){
+        Optional<Factura> facturaBD = facturaRepositorio.findById(id);
+        FacturaDto facturaDto = FacturaDto.builder()
+                .idFactura(facturaBD.get().getIdFactura())
+                .fechaFactura(facturaBD.get().getFechaFactura().toString())
+                .numeroFactura(facturaBD.get().getNumeroFactura())
+                .porcentajeDescuento(facturaBD.get().getPorcentajeDescuento())
+                .totalVenta(facturaBD.get().getTotalVenta())
+                .totalCosto(facturaBD.get().getTotalCosto())
+                .build();
+        return facturaDto;
     }
 
     public Factura guardarFactura(Factura factura){
