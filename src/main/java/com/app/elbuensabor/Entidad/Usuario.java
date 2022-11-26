@@ -21,11 +21,11 @@ public class Usuario {
     private String clave;
     private String email;
     private String usuario;   //Usuario de ingreso para loguearse
-    private int telefono;
+    private long telefono;
     boolean bajaUsuario;
 
     //Relaciones
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name="idUsuario")
     private List<Domicilio> domicilios;
     @ManyToOne

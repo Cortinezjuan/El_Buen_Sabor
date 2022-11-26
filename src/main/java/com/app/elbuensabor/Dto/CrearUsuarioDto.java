@@ -5,6 +5,8 @@ import com.app.elbuensabor.Entidad.Rol;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -17,8 +19,8 @@ public class CrearUsuarioDto {
     private String clave;
     private String email;
     private String usuario;   //Usuario de ingreso para loguearse
-    private int telefono;
+    private long telefono;
     boolean bajaUsuario;
-    private Domicilio domicilio;
+    private List<Domicilio> domicilios;
     private String rol;
 }

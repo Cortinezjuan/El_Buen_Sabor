@@ -17,7 +17,7 @@ public class UsuarioDomRolDto {
     private String apellidos;
     private String email;
     private String usuario;
-    private int telefono;
+    private long telefono;
     private String clave;
     boolean bajaUsuario;
     //relaciones

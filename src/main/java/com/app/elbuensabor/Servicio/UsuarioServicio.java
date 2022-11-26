@@ -2,6 +2,7 @@ package com.app.elbuensabor.Servicio;
 
 import com.app.elbuensabor.Dto.*;
 import com.app.elbuensabor.Entidad.Domicilio;
+import com.app.elbuensabor.Entidad.PrecioArticuloInsumo;
 import com.app.elbuensabor.Entidad.Rol;
 import com.app.elbuensabor.Entidad.Usuario;
 import com.app.elbuensabor.Excepciones.CredencialInvalidaException;
@@ -80,7 +81,20 @@ public class UsuarioServicio {
         String passEncriptada = passwordEncoders.encode(dto.getClave());
         Rol rolEncontrado = rolRepositorio.findBydescripcion(dto.getRol());
         List<Domicilio> domicilios = new ArrayList<>();
-        domicilios.add(dto.getDomicilio());
+        try {
+            for (Domicilio domicilio : dto.getDomicilios()) {
+                Domicilio domicilioNuevo = new Domicilio();
+
+                domicilioNuevo.setIdDomicilio(domicilio.getIdDomicilio());
+                domicilioNuevo.setCalle(domicilio.getCalle());
+                domicilioNuevo.setNumeroDomicilio(domicilio.getNumeroDomicilio());
+                domicilioNuevo.setLocalidad(domicilio.getLocalidad());
+
+                domicilios.add(domicilioNuevo);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         Usuario usuario = Usuario.builder()
                 .nombres(dto.getNombres())
                 .apellidos(dto.getApellidos())
@@ -207,6 +221,7 @@ public class UsuarioServicio {
                 .usuario(usuario.getUsuario())
                 .telefono(usuario.getTelefono())
                 .telefono(usuario.getTelefono())
+                .domicilios(usuario.getDomicilios())
                 .build();
         return usuarioDto;
     }
