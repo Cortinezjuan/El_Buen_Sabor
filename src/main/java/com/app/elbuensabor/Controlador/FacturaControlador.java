@@ -1,5 +1,6 @@
 package com.app.elbuensabor.Controlador;
 
+import com.app.elbuensabor.Dto.FacturaDto;
 import com.app.elbuensabor.Dto.PedidoRespDto;
 import com.app.elbuensabor.Entidad.Factura;
 import com.app.elbuensabor.Servicio.EnvioMail;
@@ -30,7 +31,7 @@ public class FacturaControlador {
     }
 
     @GetMapping("/listarFacturaXId/{id}")
-    public Optional<Factura> listarFacturaPorId(@PathVariable("id") int id) {
+    public FacturaDto listarFacturaPorId(@PathVariable("id") int id) {
         return facturaServicio.listarFacturaPorId(id);
     }
 
