@@ -52,8 +52,8 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/listarUsuariosEmpleados")
-    public List<UsuarioDto> listarPedidosPorUsuario(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
-        return usuarioServicio.listarUsuariosEmpleados();
+    public List<UsuarioDomRolDto> listarUsuarios(@RequestParam(name= "nombreUsuario", defaultValue = "null", required = false) String nombreUsuario) {
+        return usuarioServicio.listarUsuarios();
     }
 
     @GetMapping("/getUsuarioByNombreUsuario")

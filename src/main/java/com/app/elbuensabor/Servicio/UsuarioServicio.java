@@ -148,7 +148,7 @@ public class UsuarioServicio {
                     .email(aux.getEmail())
                     .usuario(aux.getUsuario())
                     .telefono(aux.getTelefono())
-                    .rol(aux.getRol().getDescripcion())
+                    .rol("aux.getRol().getDescripcion()")
                     .build();
             usuarioDtos.add(usuarioDto);
         }
@@ -166,17 +166,16 @@ public class UsuarioServicio {
             usuario.setApellidos(usuario2.getApellidos());
             usuario.setEmail(usuario2.getEmail());
             usuario.setUsuario(usuario2.getUsuario());
-            usuario.setTelefono(usuario.getTelefono());
+            usuario.setTelefono(usuario2.getTelefono());
             usuario.setClave(usuario2.getClave());
-            usuario.setRol(usuario2.getRol().getDescripcion());
-//            try{
-//                Rol rol = new Rol();
-//                rol.setIdRol(usuario2.getRol().getIdRol());
-//                rol.setDescripcion(usuario2.getRol().getDescripcion());
-//                usuario.setRol(rol);
-//            }catch (Exception e){
-//                System.out.println(e.getMessage());
-//            }
+            try{
+                Rol rol = new Rol();
+                rol.setIdRol(usuario2.getRol().getIdRol());
+                rol.setDescripcion(usuario2.getRol().getDescripcion());
+                usuario.setRol(rol.getDescripcion());
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
             try{
                 List<Domicilio> domicilios = new ArrayList<>();
 
@@ -192,6 +191,7 @@ public class UsuarioServicio {
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
+            result.add(usuario);
         }
         return result;
     }
