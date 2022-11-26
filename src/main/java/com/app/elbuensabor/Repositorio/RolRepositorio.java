@@ -15,4 +15,7 @@ public interface RolRepositorio extends JpaRepository<Rol, Integer> {
     List<Rol> listarRoles();
 
     public Rol findBydescripcion(String descripcion);
+
+    @Query(value="SELECT descripcion FROM rol WHERE baja_rol = false", nativeQuery = true)
+    List<String> listarRolesString();
 }

@@ -21,10 +21,10 @@ public class UsuarioControlador {
     @Autowired
     UsuarioServicio usuarioServicio;
 
-//    @GetMapping("/listarUsuarios")
-//    public List<UsuarioDto> listarUsuarios() {
-//        return usuarioServicio.listarUsuarios();
-//    }
+    @GetMapping("/listarUsuarios")
+    public List<UsuarioDomRolDto> listarUsuarios() {
+        return usuarioServicio.listarUsuarios();
+    }
 
     @GetMapping("/listarUsuarioXId/{id}")
     public UsuarioDto listarUsuarioPorId(@PathVariable("id") int id) {

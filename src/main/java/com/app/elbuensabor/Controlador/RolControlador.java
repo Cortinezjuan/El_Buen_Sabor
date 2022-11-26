@@ -38,5 +38,10 @@ public class RolControlador {
     public Rol modificarRol(@RequestBody Rol rol){
         return rolServicio.modificarRol(rol);
     }
+
+    @GetMapping("/listarRolesString")
+    public List<String> listarRolesString(){
+        return rolServicio.listarRolesString();
+    }
 }
 

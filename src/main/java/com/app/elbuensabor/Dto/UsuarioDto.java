@@ -23,6 +23,7 @@ public class UsuarioDto {
     private String clave;
     boolean bajaUsuario;
     //relaciones
-    private String rol;
     private List<Domicilio> domicilios;
+    private String rol;
+
 }

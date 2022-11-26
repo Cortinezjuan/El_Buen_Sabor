@@ -1,9 +1,6 @@
 package com.app.elbuensabor.Servicio;
 
-import com.app.elbuensabor.Dto.CrearUsuarioDto;
-import com.app.elbuensabor.Dto.LoginDto;
-import com.app.elbuensabor.Dto.LoginRequestDto;
-import com.app.elbuensabor.Dto.UsuarioDto;
+import com.app.elbuensabor.Dto.*;
 import com.app.elbuensabor.Entidad.Domicilio;
 import com.app.elbuensabor.Entidad.Rol;
 import com.app.elbuensabor.Entidad.Usuario;
@@ -28,54 +25,6 @@ public class UsuarioServicio {
     BCryptPasswordEncoder passwordEncoders;
     @Autowired
     RolRepositorio rolRepositorio;
-
-//    public List<UsuarioDto> listarUsuarios(){
-//        List<UsuarioDto> result = new ArrayList<>();
-//
-//        for (Usuario usuario2 : usuarioRepositorio.listarUsuarios()) {
-//            UsuarioDto usuario = new UsuarioDto();
-//
-//            usuario.setIdUsuario(usuario2.getIdUsuario());
-//            usuario.setNombres(usuario2.getNombres());
-//            usuario.setApellidos(usuario2.getApellidos());
-//            usuario.setEmail(usuario2.getEmail());
-//            usuario.setUsuario(usuario2.getUsuario());
-//            usuario.setTelefono(usuario.getTelefono());
-//            usuario.setClave(usuario2.getClave());
-//
-//            try{
-//                Rol rol = new Rol();
-//
-//                rol.setIdRol(usuario2.getRol().getIdRol());
-//                rol.setDescripcion(usuario2.getRol().getDescripcion());
-//
-//                usuario.setRol(rol);
-//
-//            }catch (Exception e){
-//                System.out.println(e.getMessage());
-//            }
-//
-//            try{
-//                List<Domicilio> domicilios = new ArrayList<>();
-//
-//                for (Domicilio dom : usuario2.getDomicilios()) {
-//                    Domicilio domicilio = new Domicilio();
-//
-//                    domicilio.setIdDomicilio(dom.getIdDomicilio());
-//                    domicilio.setCalle(dom.getCalle());
-//                    domicilio.setNumeroDomicilio(dom.getNumeroDomicilio());
-//                    domicilio.setLocalidad(dom.getLocalidad());
-//
-//                    domicilios.add(domicilio);
-//                }
-//                usuario.setDomicilios(domicilios);
-//
-//            }catch (Exception e){
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//        return result;
-//    }
 
     public UsuarioDto listarUsuarioPorId(int id){
         Optional<Usuario> usuarioOptional = usuarioRepositorio.findById(id);
@@ -204,6 +153,47 @@ public class UsuarioServicio {
             usuarioDtos.add(usuarioDto);
         }
         return usuarioDtos;
+    }
+
+    public List<UsuarioDomRolDto> listarUsuarios(){
+        List<UsuarioDomRolDto> result = new ArrayList<>();
+
+        for (Usuario usuario2 : usuarioRepositorio.listarUsuarios()) {
+            UsuarioDomRolDto usuario = new UsuarioDomRolDto();
+
+            usuario.setIdUsuario(usuario2.getIdUsuario());
+            usuario.setNombres(usuario2.getNombres());
+            usuario.setApellidos(usuario2.getApellidos());
+            usuario.setEmail(usuario2.getEmail());
+            usuario.setUsuario(usuario2.getUsuario());
+            usuario.setTelefono(usuario.getTelefono());
+            usuario.setClave(usuario2.getClave());
+            usuario.setRol(usuario2.getRol().getDescripcion());
+//            try{
+//                Rol rol = new Rol();
+//                rol.setIdRol(usuario2.getRol().getIdRol());
+//                rol.setDescripcion(usuario2.getRol().getDescripcion());
+//                usuario.setRol(rol);
+//            }catch (Exception e){
+//                System.out.println(e.getMessage());
+//            }
+            try{
+                List<Domicilio> domicilios = new ArrayList<>();
+
+                for (Domicilio dom : usuario2.getDomicilios()) {
+                    Domicilio domicilio = new Domicilio();
+                    domicilio.setIdDomicilio(dom.getIdDomicilio());
+                    domicilio.setCalle(dom.getCalle());
+                    domicilio.setNumeroDomicilio(dom.getNumeroDomicilio());
+                    domicilio.setLocalidad(dom.getLocalidad());
+                    domicilios.add(domicilio);
+                }
+                usuario.setDomicilios(domicilios);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return result;
     }
 
     public UsuarioDto getUsuarioBynombreUsuario(String nombreUsuario){

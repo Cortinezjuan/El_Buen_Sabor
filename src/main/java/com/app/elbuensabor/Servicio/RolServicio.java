@@ -34,4 +34,8 @@ public class RolServicio {
     public Rol modificarRol(Rol rol){
         return rolRepositorio.save(rol);
     }
+
+    public List<String> listarRolesString(){
+        return rolRepositorio.listarRolesString();
+    }
 }
