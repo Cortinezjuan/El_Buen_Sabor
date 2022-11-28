@@ -151,23 +151,46 @@ public class UsuarioServicio {
              return null;
     }
 
-    public List<UsuarioDto> listarUsuariosEmpleados(){
-        List<Usuario> usuarios = usuarioRepositorio.listarUsuariosEmpleados();
-        List<UsuarioDto> usuarioDtos = new ArrayList<>();
-        for(Usuario aux:usuarios){
-            UsuarioDto usuarioDto = UsuarioDto.builder()
-                    .idUsuario(aux.getIdUsuario())
-                    .nombres(aux.getNombres())
-                    .apellidos(aux.getApellidos())
-                    .email(aux.getEmail())
-                    .usuario(aux.getUsuario())
-                    .telefono(aux.getTelefono())
-                    .rol("aux.getRol().getDescripcion()")
-                    .build();
-            usuarioDtos.add(usuarioDto);
+    public List<UsuarioDomRolDto> listarUsuariosEmpleados(){
+            List<UsuarioDomRolDto> result = new ArrayList<>();
+
+            for (Usuario usuario2 : usuarioRepositorio.listarUsuariosEmpleados()) {
+                UsuarioDomRolDto usuario = new UsuarioDomRolDto();
+
+                usuario.setIdUsuario(usuario2.getIdUsuario());
+                usuario.setNombres(usuario2.getNombres());
+                usuario.setApellidos(usuario2.getApellidos());
+                usuario.setEmail(usuario2.getEmail());
+                usuario.setUsuario(usuario2.getUsuario());
+                usuario.setTelefono(usuario2.getTelefono());
+                usuario.setClave(usuario2.getClave());
+                try{
+                    Rol rol = new Rol();
+                    rol.setIdRol(usuario2.getRol().getIdRol());
+                    rol.setDescripcion(usuario2.getRol().getDescripcion());
+                    usuario.setRol(rol.getDescripcion());
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+                try{
+                    List<Domicilio> domicilios = new ArrayList<>();
+
+                    for (Domicilio dom : usuario2.getDomicilios()) {
+                        Domicilio domicilio = new Domicilio();
+                        domicilio.setIdDomicilio(dom.getIdDomicilio());
+                        domicilio.setCalle(dom.getCalle());
+                        domicilio.setNumeroDomicilio(dom.getNumeroDomicilio());
+                        domicilio.setLocalidad(dom.getLocalidad());
+                        domicilios.add(domicilio);
+                    }
+                    usuario.setDomicilios(domicilios);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+                result.add(usuario);
+            }
+            return result;
         }
-        return usuarioDtos;
-    }
 
     public List<UsuarioDomRolDto> listarUsuarios(){
         List<UsuarioDomRolDto> result = new ArrayList<>();
