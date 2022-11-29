@@ -71,4 +71,4 @@ src/main/java/ElbuensaborApplication
 |&nbsp;&nbsp;&nbsp;&nbsp;Cabrera Fernando Damián|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cortinez Juan José|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scripponi Cintia Lucía|  
 
 ## Video demostrativo del proyecto 📺️
-Link: https://youtu.be/u3JlbA7qtC
+Link: https://youtu.be/u3JlbA7qtCs
